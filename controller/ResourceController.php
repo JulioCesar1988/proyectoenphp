@@ -1,8 +1,8 @@
 <?php
 /**
- * Description of ResourceController
+ *  Acá vamos a crear las vistas para el modelo de la configuracion . 
  *
- * @author fede
+ * @author Contreras Julio 
  */
 class ResourceController {
 
@@ -43,7 +43,7 @@ class ResourceController {
         $view->tesina_index();
     }
      public function login(){
-        $view = new Home();
+        $view = new View_usuario();
         $view->login();
     }
 
@@ -54,8 +54,20 @@ class ResourceController {
 
       public function index(){
         $view = new Home();
+        $view->index();
+    }
+    
+    // Vista donde vamos a setear la configuracion de la pagina . 
+    public function show_configuracion(){
+        $view = new View_configuracion();
         $view->show();
     }
 
+
+
+  public function show_mantenimiento(){
+        $view = new View_configuracion();
+        $view->show_mantenimiento();
+    }
 
 }

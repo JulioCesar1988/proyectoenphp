@@ -5,6 +5,7 @@
   {% include 'navbar.html.twig' %}
   <div class="container">
     <h2> Registrarse </h2>
+    <!-- bueno aca lo mandamos a index con la action=usuario_new -->
     <form action="/action_page.php">
       <div class="form-group">
         <label for="email">Email:</label>
@@ -26,10 +27,7 @@
 <label for="inputsm">Nombre de Usuario</label>
 <input class="form-control input-sm" id="inputsm" type="text">
 </div>
-      <div class="checkbox">
-        <label><input type="checkbox" name="remember"> Remember me</label>
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">Registrarse</button>
     </form>
   </div>
   {% include 'footer.html.twig' %}
