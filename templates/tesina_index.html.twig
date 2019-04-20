@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'head.html.twig' %}
+  <body>
+  {% include 'navbar.html.twig' %}
+
+  <div class="container">
+    <h2>Administracion de Tesinas</h2>
+    <p>En esta pantalla podemos hacer las operaciones de ABM para las Tesinas . </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Doe</td>
+          <td>john@example.com</td>
+          <td>Bloqueado</td>
+          <div class="container">
+            <td><button type="button" class="btn btn-info">Actualizar</button></td>
+            <td><button type="button" class="btn btn-warning">Modificar</button></td>
+            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+          </div>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  {% include 'footer.html.twig' %}
+  </body>
+</html>

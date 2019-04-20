@@ -1,0 +1,20 @@
+{# Logo de la facultad , consultar si tiene que ir en otro archivo ó el de estilo #}
+<img src="./image/logounlp.jpg" height="111" width="617" alt="Facultad de Informática UNLP">
+<div class="topnav">
+{# Informacion publica #}
+  <a href="./index.php?action=index">Inicio</a>
+    <a href="./index.php?action=administracion">Administracion Usuarios</a>
+    <a href="./index.php?action=tesina_index">Administracion Tesinas</a>
+  <a href="./index.php?action=registrarse">Registrarse</a>
+  <a href="./index.php?action=login">Ingresar</a>
+  {% if logged_user %}
+  {# Opciones que podemos ver si el usuario esta logeado #}
+  <a href="./index.php?action=administracion">Administracion</a>
+    <a href="#">Logout</a>
+  {% elseif not logged_user %}
+  {# Opciones que se visualizan si no esta Logeado #}
+  {% else %}
+  {% endif %}
+    <p style="float: right; margin-right: 5px; margin-top: 13px;">{{logged_user}}</p>
+
+</div>
