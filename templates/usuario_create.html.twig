@@ -5,31 +5,32 @@
   {% include 'navbar.html.twig' %}
   <div class="container">
     <h2> Registrarse </h2>
-    <!-- bueno aca lo mandamos a index con la action=usuario_new -->
-    <form action="/action_page.php">
+    <form action="./index.php?action=usuario_add" method="POST">
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required="true">
       </div>
       <div class="form-group">
         <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required="true">
       </div>
+   <div class="form-group">
+<label for="inputsm">Nombre de Usuario</label>
+<input class="form-control input-sm" id="username" name="username" type="text" required="true">
+</div>
       <div class="form-group">
     <label for="inputsm">Nombre</label>
-    <input class="form-control input-sm" id="inputsm" type="text">
+    <input class="form-control input-sm" id="first_name" name="first_name" type="text" required="true">
   </div>
   <div class="form-group">
     <label for="inputsm">Apellido</label>
-    <input class="form-control input-sm" id="inputsm" type="text">
+    <input class="form-control input-sm" id="last_name" name="last_name" type="text" required="true">
   </div>
-  <div class="form-group">
-<label for="inputsm">Nombre de Usuario</label>
-<input class="form-control input-sm" id="inputsm" type="text">
-</div>
       <button type="submit" class="btn btn-default">Registrarse</button>
     </form>
   </div>
   {% include 'footer.html.twig' %}
   </body>
 </html>
+
+

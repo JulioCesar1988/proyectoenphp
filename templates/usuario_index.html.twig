@@ -9,26 +9,28 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Email</th>
+          <th>Nombre de usuario</th>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Email</th>
-          <th>Estado</th>
+        
         </tr>
       </thead>
       <tbody>
+          {% for usuario in usuarios %}
         <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>john@example.com</td>
-          <td>Bloqueado</td>
-          
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.username}}</td>
+          <td>{{usuario.first_name}}</td>
+          <td>{{usuario.last_name}}</td>
+
           <div class="container">
             <td><button type="button" class="btn btn-info">Actualizar</button></td>
             <td><button type="button" class="btn btn-warning">Modificar</button></td>
             <td><button type="button" class="btn btn-danger">Eliminar</button></td>
           </div>
         </tr>
-
+{% endfor %}
       </tbody>
 
     </table>

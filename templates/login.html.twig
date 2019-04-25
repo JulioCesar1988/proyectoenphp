@@ -5,7 +5,7 @@
   {% include 'navbar.html.twig' %}
   <div class="container">
     <h2>Iniciar Sesión </h2>
-    <form action="/action_page.php">
+    <form action="./index.php?action=usuario_validar" method="POST">
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
@@ -15,9 +15,9 @@
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
       </div>
       <div class="checkbox">
-        <label><input type="checkbox" name="remember"> Remember me</label>
+        <label><input type="checkbox" name="remember"> Recordar ? </label>
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">Ingresar</button>
     </form>
   </div>
   {% include 'footer.html.twig' %}

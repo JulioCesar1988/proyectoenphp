@@ -21,10 +21,10 @@ class ResourceRepository extends PDORepository {
     }
 
     public function listAll() {
-        $answer = $this->queryList("select * from usuarios where estado=?;", ['Confirmado']);
+        $answer = $this->queryList("select * from usuario");
         $final_answer = [];
         foreach ($answer as &$element) {
-            $final_answer[] = new Resource($element['apellido'].", ".$element['nombre'], $element['id']);
+            $final_answer[] = new Resource($element['last_name'].", ".$element['first_name'], $element['id_usuario']);
         }
         return $final_answer;
     }
