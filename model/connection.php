@@ -3,7 +3,7 @@
     private $connection;
     function __construct(){
       try {
-        $con = new PDO("mysql:host=localhost;dbname=grupo52","root","YmY3NzI0OGU0ZWQ5");
+        $con = new PDO("mysql:host=localhost;dbname=grupo52","grupo52","YmY3NzI0OGU0ZWQ5");
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->connection = $con;
       } catch (PDOException $e) {
