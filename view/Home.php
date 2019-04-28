@@ -7,10 +7,13 @@
  */
 class Home extends TwigView {
 
-    public function index() {
-        echo self::getTwig()->render('index.html.twig');
+    public function index($logged_user) {
+       echo self::getTwig()->render('index.html.twig', array('logged_user' => $logged_user));
 
     }
 
 
 }
+
+
+

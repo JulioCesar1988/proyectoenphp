@@ -7,8 +7,8 @@
  */
 class View_configuracion extends TwigView {
 
-    public function show() {
-        echo self::getTwig()->render('show_configuracion.html.twig');
+    public function show($logged_user) {
+        echo self::getTwig()->render('show_configuracion.html.twig', array('logged_user' => $logged_user ));
     }
 
 

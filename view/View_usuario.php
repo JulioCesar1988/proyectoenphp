@@ -14,8 +14,8 @@ class View_usuario extends TwigView {
     }
 
     // mostramos todos los usuarios.
-    public function usuario_index($usuarios) {
-        echo self::getTwig()->render('usuario_index.html.twig',array('usuarios' => $usuarios));
+    public function usuario_index($logged_user,$usuarios) {
+        echo self::getTwig()->render('usuario_index.html.twig',array('logged_user' => $logged_user ,'usuarios' => $usuarios ));
 
     }
 

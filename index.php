@@ -10,7 +10,7 @@ require_once('model/PDORepository.php');
 require_once('model/ResourceRepository.php');
 require_once('model/Resource.php');
 require_once('view/TwigView.php');
-require_once('view/SimpleResourceList.php');
+
 require_once('model/usuario.php');
 require_once('view/Home.php');
 require_once('view/View_usuario.php');
@@ -46,11 +46,16 @@ if (isset($_GET["action"])) {
       ResourceController::getInstance()->show_mantenimiento();
       break;
       case "usuario_validar":
-      echo "validar usuario ";
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
       UsuarioController::getInstance()->usuario_validar($email,$clave);
       break;
+      case "cerrar_sesion":
+      UsuarioController::getInstance()->cerrar_sesion();
+      break;
+
+
+
       case "usuario_add":
       if (!empty($_POST['email']) && !empty($_POST['pwd']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['username'])) {
           $email = $_POST['email'];

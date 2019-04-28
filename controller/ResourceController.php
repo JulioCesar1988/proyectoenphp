@@ -26,9 +26,23 @@ class ResourceController {
         $view->show($resources);
     }
 
-    public function home(){
-        $view = new Home();
-        $view->show();
+    public function index(){
+    session_start();
+    if (isset($_SESSION['email'])) {
+        # code...
+           $logged_user = $_SESSION['email'];
+           $view = new Home();
+           $view->index($logged_user);
+
+    } else {
+        # code...
+    $logged_user = "";
+    $view = new Home();
+    $view->index($logged_user);
+
+    }
+    
+    
     }
 
     public function registrarse(){
@@ -52,19 +66,26 @@ class ResourceController {
         $view->administracion();
     }
 
-      public function index(){
-        $view = new Home();
-        $view->index();
-    }
+
     
     // Vista donde vamos a setear la configuracion de la pagina . 
     public function show_configuracion(){
+     session_start();
+       if (isset($_SESSION['email'])) {
+        # code...
+        $logged_user = $_SESSION['email'];     
         $view = new View_configuracion();
-        $view->show();
+        $view->show($logged_user);
+
+    } else {
+       $logged_user = "";
+        $view = new View_configuracion();
+        $view->show($logged_user);
+
     }
 
 
-
+  }
   public function show_mantenimiento(){
         $view = new View_configuracion();
         $view->show_mantenimiento();
