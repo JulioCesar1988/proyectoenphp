@@ -5,30 +5,34 @@
   {% include 'navbar.html.twig' %}
   <div class="container">
     <h2>Configuracion de sistema </h2>
-    <form action="/action_page.php">
+    <form action="./index.php?action=actualizar_configuracion">
       <div class="form-group">
         <label for="email">Email del Sitio</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{email}}">
       </div>
-    
     <div class="form-group">
     <label for="inputsm">Titulo de la pagina</label>
-    <input class="form-control input-sm" id="inputsm" type="text">
+    <input class="form-control input-sm" id="inputsm" name="titulo" type="text" value="{{titulo}}">
   </div>
-      <div class="form-group">
+
+  <div class="form-group">
   <label for="sel1">Cantidad de elementos por pagina :</label>
-  <select class="form-control" id="sel1">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
+  <select class="form-control" id="sel1" name="paginas" >
+    <option> {{cantidad_paginas}}</option>
+    <option> 5</option>
+    <option>10</option>
+    <option>20</option>
+    <option>30</option>
+    <option>50</option>
+    <option>70</option>
+    <option>100</option>
+    <option>150</option>
   </select>
 </div>
-<div class="checkbox">
-  <label><input type="checkbox" value="">Bloquear Pagina</label>
-</div>
 
-      
+<div class="checkbox">
+  <label><input type="checkbox"  name="bloqueado" Checked>Bloquear Pagina</label>
+</div>
       <button type="submit" class="btn btn-default">Actualizar cambios</button>
     </form>
   </div>

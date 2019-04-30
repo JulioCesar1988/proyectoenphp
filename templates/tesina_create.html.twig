@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'head.html.twig' %}
+  <body>
+  {% include 'navbar.html.twig' %}
+  <div class="container">
+    <h2> Formulario de Tesina </h2>
+    <form action="./index.php?action=tesina_add" method="POST">
+   <div class="form-group">
+<label for="inputsm">Titulo:</label>
+<input class="form-control input-sm" id="username" name="username" type="text" required="true">
+</div>
+
+      <div class="form-group">
+  <label for="comment"> Objetivos:</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+
+      <div class="form-group">
+  <label for="comment"> Motivacion:</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+
+      <div class="form-group">
+  <label for="comment"> Desarrollo propuesto:</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+
+      <div class="form-group">
+  <label for="comment"> Resultados esperados:</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+     
+<div class="form-group">
+  <label for="sel1">Clasificacion:</label>
+  <select class="form-control" id="sel1">
+    <option>select de Investigación teórica</option>
+    <option>Investigación aplicada</option>
+    <option>Desarrollo
+Tecnológico</option>
+    <option>Temática de RS</option>
+    <option>Transferencia tecnológica</option>
+  </select>
+</div>   
+
+   <div class="form-group">
+<label for="inputsm">Plazo de Meses:</label>
+<input class="form-control input-sm" id="username" name="username" type="text" required="true">
+</div>
+
+<div>
+<label for="inputsm">Director:</label>
+<input class="form-control input-sm" id="director" name="directir" type="text" required="true">
+</div>
+
+<div>
+<label for="inputsm">Codirector:</label>
+<input class="form-control input-sm" id="codirector" name="codirector" type="text" required="true">
+</div>
+
+<div>
+<label for="inputsm">Asesor profesional:</label>
+<input class="form-control input-sm" id="codirector" name="codirector" type="text" required="true">
+</div>
+
+
+
+  
+<button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+  </div>
+  {% include 'footer.html.twig' %}
+  </body>
+</html>
+

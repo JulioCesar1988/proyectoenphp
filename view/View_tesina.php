@@ -26,7 +26,7 @@ class View_tesina extends TwigView {
     }
 
    // formulario para la  creacion de la tesina.
-    public function tesina_crate() {
+    public function tesina_create() {
         echo self::getTwig()->render('tesina_create.html.twig');
 
     }

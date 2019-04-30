@@ -4,13 +4,13 @@ ini_set('display_errors',1);
 error_reporting(-1);
 //elementos de importacion , recursos necesarios para trabajar.
 require_once('controller/ResourceController.php');
+require_once('controller/ConfiguracionController.php');
 require_once('controller/UsuarioController.php');
 require_once('controller/TesinaController.php');
 require_once('model/PDORepository.php');
 require_once('model/ResourceRepository.php');
 require_once('model/Resource.php');
 require_once('view/TwigView.php');
-
 require_once('model/usuario.php');
 require_once('view/Home.php');
 require_once('view/View_usuario.php');
@@ -38,10 +38,20 @@ if (isset($_GET["action"])) {
       TesinaController::getInstance()->tesina_index();
       break;
 
-      case "configuracion":
-      ResourceController::getInstance()->show_configuracion();
+      case "tesina_create":
+      // tiene que venir los campos , analizar si pueden ir al controlador directamente
+      TesinaController::getInstance()->tesina_create();
       break;
 
+
+      case "configuracion":
+      ConfiguracionController::getInstance()->get_configuracion();
+      break;
+      
+      case "actualizar_configuracion":
+      ConfiguracionController::getInstance()->configuracion_update();
+      break;
+      
       case "mantenimiento":
       ResourceController::getInstance()->show_mantenimiento();
       break;

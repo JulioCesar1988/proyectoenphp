@@ -35,9 +35,6 @@ class Usuario {
   }
 
 
-  
-
-
  // listar todos los usuarios . 
   public function validar_datos($email, $clave){
     $query = $this->connection()->prepare("SELECT * FROM usuario WHERE (email = ? and password = ?)");
