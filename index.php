@@ -89,18 +89,33 @@ if (isset($_GET["action"])) {
 
 
       case "usuario_update":
-      echo " usuario email       ->  ".$_POST['email'];
-      echo " usuario first_name  ->  ".$_POST['first_name'];
-      echo " usuario last_name   ->  ".$_POST['last_name'];
-      echo " usuario a modificar ->  ".$_POST['username'];
+      echo " #### index ###";
+      echo " EMAIL       ->  ".$_POST['email'];
+      echo " FIRST_NAME  ->  ".$_POST['first_name'];
+      echo " LAST_NAME   ->  ".$_POST['last_name'];
+      echo " USERNAME ->  ".$_POST['username'];
+      echo " OLD EMAIL ->  ".$_GET['old_email'];
+      
       $email = $_POST['email'];
       $first_name = $_POST['first_name'];
       $last_name = $_POST['last_name'];
       $username = $_POST['username'];
       $clave = $_POST['pwd'];
-      $old_email = $_POST['old_email'];
-      UsuarioController::getInstance()->usuario_update($email,$first_name,$last_name,$clave,$username,$clave,$old_email);
+      $old_email = $_GET['old_email'];
+      UsuarioController::getInstance()->usuario_update($email,$first_name,$last_name,$clave,$username,$old_email);
       break;
+
+
+      case "usuario_bloquear":
+      echo " #### index ###";
+      echo "  EMAIL ->  ".$_GET['usuario_email'];
+      
+      $email = $_GET['usuario_email'];
+     
+      UsuarioController::getInstance()->usuario_bloquear($email);
+      break;
+
+
 
 
       //case "usuario_update":

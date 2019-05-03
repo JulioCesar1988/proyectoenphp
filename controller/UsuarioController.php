@@ -107,24 +107,37 @@ class UsuarioController {
 
 
      //  UPDATE 
-    public function usuario_update( $email,$first_name,$last_name,$username,$clave,$old_email){
-        echo " ###### controlador ###### ";
-        echo " email : ".$email;
-        echo " first_name : ".$first_name;
-        echo " last_name : ".$last_name;
-        echo " clave : ".$clave;
-        echo " username : ".$username;
-        echo " clave : ".$clave;
-        echo " old_email : ".$old_email;
-       
-       //$usuario = new Usuario();
+    public function usuario_update( $email,$first_name,$last_name,$clave,$username,$old_email){
+       $usuario = new Usuario();
+       $usuario->update($email,$first_name,$last_name,$clave,$username,$old_email);
 
-       //echo " ##################################### ";
-       
-       //$usuario->update($email,$first_name,$last_name,$username,$clave,$old_email);
-
-        //header('location:./index.php?action=usuario_index');
+        header('location:./index.php?action=usuario_index');
     }
+   
+   
+
+public function usuario_bloquear( $email){
+       $usuario = new Usuario();
+       $u = $usuario->fetch($email);
+       $bloqueado = $u['activo'];
+      if ($bloqueado) {
+          # code...
+        $usuario->bloquear($email);
+       
+      } else {
+          # code...
+        $usuario->desbloquear($email);
+       
+      }
+      
+
+       
+        header('location:./index.php?action=usuario_index');
+    
+
+
+    }
+
 
 
 

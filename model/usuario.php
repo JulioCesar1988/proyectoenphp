@@ -60,11 +60,42 @@ class Usuario {
 
 
  // listar todos los usuarios . 
-  //$email,$first_name,$last_name,$username,$clave,$old_email
-  public function update($email , $first_name,$last_name,$username,$password,$old_email) {
-    $query = $this->connection()->prepare("UPDATE usuario SET email = ? , first_name = ? , last_name = ?, username = ? , password = ? WHERE (email = ?)");
-    $query->execute(array($email , $first_name,$last_name,$username,$password,$old_email));
+  public function update($email , $first_name,$last_name,$password,$username,$old_email) {
+    echo "# info que llega al modelo";
+    echo " EMAIL ".$email;
+    echo " FIRST_NAME ".$first_name;
+    echo " LAST_NAME ".$last_name;
+    echo " CLAVE ".$password;
+    echo " USERNAME ".$username;
+    echo " OLD NAME ".$old_email;
+
+    $query = $this->connection()->prepare("UPDATE usuario SET email = ? , first_name = ? , last_name = ?, password = ? ,username = ?  WHERE (email = ?)");
+    $query->execute(array($email , $first_name,$last_name,$password,$username,$old_email));
   
   }
+
+ 
+
+  public function bloquear($email) {
+    echo "# info que llega al modelo";
+    echo " EMAIL ".$email;
+    echo " OLD NAME ".$old_email;
+    $query = $this->connection()->prepare("UPDATE usuario SET activo = 0   WHERE (email = ?)");
+    $query->execute(array($email));
+  
+  }
+
+  
+  public function desbloquear($email) {
+    echo "# info que llega al modelo";
+    echo " EMAIL ".$email;
+    echo " OLD NAME ".$old_email;
+    $query = $this->connection()->prepare("UPDATE usuario SET activo = 1   WHERE (email = ?)");
+    $query->execute(array($email));
+  
+  }
+
+
+
 
 }
