@@ -12,13 +12,23 @@ require_once('model/ResourceRepository.php');
 require_once('model/Resource.php');
 require_once('view/TwigView.php');
 require_once('model/usuario.php');
+require_once('model/configuracion.php');
 require_once('view/Home.php');
 require_once('view/View_usuario.php');
 require_once('view/View_tesina.php');
 require_once('view/View_configuracion.php');
 
 
-// Evaluamos la accion  para pedirle al controlador.
+
+
+$config =  New Configuracion();
+$hablitado = $config->get_hablitado();
+if (!$hablitado) {
+   ConfiguracionController::getInstance()->show_mantenimiento();
+
+} else {
+
+// SI LA PAGINA NO ESTA HABILITADA , NO TIENE QUE PODER NINGUNA ACCION.
 if (isset($_GET["action"])) {
   switch($_GET["action"]) {
     case "index":
@@ -33,28 +43,28 @@ if (isset($_GET["action"])) {
     case "usuario_index":
       UsuarioController::getInstance()->usuario_index();
       break;
-
     case "tesina_index":
       TesinaController::getInstance()->tesina_index();
       break;
-
       case "tesina_create":
       // tiene que venir los campos , analizar si pueden ir al controlador directamente
       TesinaController::getInstance()->tesina_create();
       break;
-
-
       case "configuracion":
       ConfiguracionController::getInstance()->get_configuracion();
       break;
-      
       case "actualizar_configuracion":
-      ConfiguracionController::getInstance()->configuracion_update();
+      $titulo = $_POST['titulo'];
+      $email = $_POST['email'];
+      $descripcion = $_POST['descripcion'];
+      $elementos_por_pagina = $_POST['elementos_por_pagina'];
+      $habilitado = $_POST['habilitado'];
+      ConfiguracionController::getInstance()->configuracion_update($titulo , $descripcion,$email , $elementos_por_pagina , $habilitado);
       break;
-      
       case "mantenimiento":
       ResourceController::getInstance()->show_mantenimiento();
       break;
+      // METODOS PARA LOS USUARIOS 
       case "usuario_validar":
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
@@ -63,6 +73,47 @@ if (isset($_GET["action"])) {
       case "cerrar_sesion":
       UsuarioController::getInstance()->cerrar_sesion();
       break;
+
+      case "usuario_eliminar":
+      echo "vamos a eliminarte";
+      $email = $_GET['usuario_email'];
+      UsuarioController::getInstance()->usuario_eliminar($email);
+      break;
+     
+      case "usuario_editar":
+      $email = $_GET['usuario_email'];
+      UsuarioController::getInstance()->usuario_editar($email);
+      break;
+
+
+
+
+      case "usuario_update":
+      echo " usuario email       ->  ".$_POST['email'];
+      echo " usuario first_name  ->  ".$_POST['first_name'];
+      echo " usuario last_name   ->  ".$_POST['last_name'];
+      echo " usuario a modificar ->  ".$_POST['username'];
+      $email = $_POST['email'];
+      $first_name = $_POST['first_name'];
+      $last_name = $_POST['last_name'];
+      $username = $_POST['username'];
+      $clave = $_POST['pwd'];
+      $old_email = $_POST['old_email'];
+      UsuarioController::getInstance()->usuario_update($email,$first_name,$last_name,$clave,$username,$clave,$old_email);
+      break;
+
+
+      //case "usuario_update":
+      //echo "Formulario para edicion";
+      //echo " usuario a modificar ->".$_GET['usuario_email'];
+      //$email = $_GET['usuario_email'];
+      //UsuarioController::getInstance()->usuario_editar($email);
+      //break;
+
+
+      
+
+      
 
 
 
@@ -85,4 +136,9 @@ if (isset($_GET["action"])) {
   }
 } else {
   ResourceController::getInstance()->index();
+}  
+
+
+
 }
+

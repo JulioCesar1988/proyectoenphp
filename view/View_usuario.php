@@ -35,11 +35,16 @@ class ListUsers extends TwigView {
 
     }
 
-    // mostrar formulario de edicion.
-    public function usuario_edit($id_usuario) {
-        echo self::getTwig()->render('usuario_edit.html.twig');
 
+
+ 
+  //public function usuario_edicion($email, $username, $name, $last_name, $password, $old_email, $roles) { 
+    // mostrar formulario de edicion.
+
+    public function usuario_edit( $logged_user , $u ,$old_email){
+        echo self::getTwig()->render('usuario_editar.html.twig',array('logged_user' => $logged_user ,'u' => $u,'old_email'=>$old_email));
     }
+
 
     // formulario para ingresar.
     public function login() {

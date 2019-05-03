@@ -26,53 +26,57 @@ class UsuarioController {
         $view->usuario_registrarse();
     }
 
-
-public function usuario_add($email,$clave,$first_name,$last_name,$username){
+    public function usuario_add($email,$clave,$first_name,$last_name,$username){
         $usuario = new Usuario();
-        $usuario->insert($email,$clave,$username,1,$first_name,$last_name);
+        $activado = 1;
+        $usuario->insert($email,$username,$clave,$activado,$first_name,$last_name);
         $usuarios = $usuario->listAll();
         $view = new View_usuario();
-        $view->usuario_index($usuarios);
+        $view->login();
 
     }
 
-
-
-
-
-
-
-   // listado de todos los usuarios
     public function usuario_index(){
         $usuario = new Usuario();
         $usuarios = $usuario->listAll();
         $view = new View_usuario();
-
         session_start();
        if (isset($_SESSION['email'])) {
         # code...
            $logged_user = $_SESSION['email'];
            $view->usuario_index($logged_user,$usuarios);
 
-    } else {
-        # code...
-    $logged_user = "";
-    $view->usuario_index($logged_user,$usuarios);
+    } else {echo "No existe session. ";}        
+
+    }
+
     
+
+
+   // FORMULARIO PARA EDITAR USUARIO .
+    public function usuario_editar($email){
+        $usuario = new Usuario();  
+        $u = $usuario->fetch($email);
+        $old_email = $email;
+        $view = new View_usuario();
+        session_start();
+       if (isset($_SESSION['email'])){
+           $logged_user = $_SESSION['email'];    
+           $view->usuario_edit($logged_user,$u,$old_email);
+       } else{
+                echo "No existe session. ";
+             }        
     }
 
-        
 
-    }
 
     // borrar usuario
-    public function usuario_delete($id_usuario){
-    // instanciamos el modelo y le pedimos que elimine . 
+    public function usuario_eliminar($email){
+    // instanciamos el modelo y le pedimos que elimine.
+     $usuario = new Usuario();  
+     $usuario->usuario_eliminar($email);
 
-        $view = new View_usuario();
-        $view->usuario_index();
     }
-
 
 
     // Creacion del login . 
@@ -98,6 +102,32 @@ public function usuario_add($email,$clave,$first_name,$last_name,$username){
      }
 
     }
+
+
+
+
+     //  UPDATE 
+    public function usuario_update( $email,$first_name,$last_name,$username,$clave,$old_email){
+        echo " ###### controlador ###### ";
+        echo " email : ".$email;
+        echo " first_name : ".$first_name;
+        echo " last_name : ".$last_name;
+        echo " clave : ".$clave;
+        echo " username : ".$username;
+        echo " clave : ".$clave;
+        echo " old_email : ".$old_email;
+       
+       //$usuario = new Usuario();
+
+       //echo " ##################################### ";
+       
+       //$usuario->update($email,$first_name,$last_name,$username,$clave,$old_email);
+
+        //header('location:./index.php?action=usuario_index');
+    }
+
+
+
      // vamos a hacer la sesion y volvemos al index
     public function cerrar_sesion(){
           session_start();
@@ -107,6 +137,5 @@ public function usuario_add($email,$clave,$first_name,$last_name,$username){
           header('location:./index.php');
     }
   
-
 
 }

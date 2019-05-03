@@ -14,6 +14,7 @@
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Bloqueado</th>
+          <th>Clave</th>
         
         </tr>
       </thead>
@@ -24,12 +25,28 @@
           <td>{{usuario.username}}</td>
           <td>{{usuario.first_name}}</td>
           <td>{{usuario.last_name}}</td>
-          <td>{{usuario.activo}}</td>
-
+           <td>{{(usuario.activo == 1 ? 'Sí' : 'No')}}</td>
+           <td>{{usuario.password}}</td>
           <div class="container">
-            <td><button type="button" class="btn btn-info">Actualizar</button></td>
-            <td><button type="button" class="btn btn-warning">Modificar</button></td>
-            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+          
+          
+
+
+              
+            <td><a class="btn btn-info" href="./index.php?action=usuario_mostrar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés mostrar este usuario?');">show</a></td>     
+
+            <td><a class="btn btn-warning" href="./index.php?action=usuario_editar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés editar este usuario?');">editar</a></td>
+
+            <td><a class="btn btn-danger" href="./index.php?action=usuario_eliminar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés borrar este usuario?');">Borrar</a></td>
+
+              <td><a class="btn btn-default" href="./index.php?action=usuario_bloquearr&usuario_email={{usuario.email}}">
+              {% if user.blocked == 1 %}
+              Desbloquear
+              {% else %}
+              Bloquear
+              {% endif %}
+              </a></td>
+
           </div>
         </tr>
 {% endfor %}
@@ -37,7 +54,15 @@
 
     </table>
 
+   Paginas:
+      {% for i in 1..10 %}
+        <a class="btn btn-primary" href="https://grupo3.proyecto2017.linti.unlp.edu.ar/controllers/users.php?action=index&page={{i}}">{{i}}</a>
+      {% endfor %}
+    
+
   </div>
+
+
 
   {% include 'footer.html.twig' %}
   </body>
