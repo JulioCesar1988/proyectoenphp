@@ -68,6 +68,8 @@ if (isset($_GET["action"])) {
       case "usuario_validar":
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
+      echo "email -> ".$email;
+      echo "clave -> ".$clave;
       UsuarioController::getInstance()->usuario_validar($email,$clave);
       break;
       case "cerrar_sesion":
@@ -96,13 +98,15 @@ if (isset($_GET["action"])) {
       echo " USERNAME ->  ".$_POST['username'];
       echo " OLD EMAIL ->  ".$_GET['old_email'];
       
+      
       $email = $_POST['email'];
       $first_name = $_POST['first_name'];
       $last_name = $_POST['last_name'];
       $username = $_POST['username'];
       $clave = $_POST['pwd'];
       $old_email = $_GET['old_email'];
-      UsuarioController::getInstance()->usuario_update($email,$first_name,$last_name,$clave,$username,$old_email);
+      $roles = $_POST['rol'];
+      UsuarioController::getInstance()->usuario_update($email,$first_name,$last_name,$clave,$username,$old_email,$roles);
       break;
 
 

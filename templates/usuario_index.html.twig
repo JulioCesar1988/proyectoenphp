@@ -3,9 +3,11 @@
   {% include 'head.html.twig' %}
   <body>
   {% include 'navbar.html.twig' %}
+
   <div class="container">
     <h2>Administracion de Usuarios</h2>
     <p>En esta pantalla podemos hacer las operaciones de ABM para Usuaruos del sistema. </p>
+
     <table class="table">
       <thead>
         <tr>
@@ -29,7 +31,7 @@
            <td>{{usuario.password}}</td>
           <div class="container">
             <td><a class="btn btn-warning" href="./index.php?action=usuario_editar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés editar este usuario?');">editar</a></td>
-            <td><a class="btn btn-danger" href="./index.php?action=usuario_eliminar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés borrar este usuario?');">Borrar</a></td>
+            <td><a class="btn btn-danger" href="./index.php?action=usuario_eliminar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés borrar este usuario?');"><span class="glyphicon glyphicon-trash"> </span> Borrar</a></td>
               <td><a class="btn btn-default" href="./index.php?action=usuario_bloquear&usuario_email={{usuario.email}}">
               {% if usuario.activo == 0 %}
               Desbloquear
@@ -44,11 +46,14 @@
       </tbody>
 
     </table>
-
+ 
    Paginas:
-      {% for i in 1..10 %}
-        <a class="btn btn-primary" href="algoparahacer index">{{i}}</a>
+      {% for i in 1..elementos_por_pagina %}
+      <a class="btn btn-primary" href="./index.php ?action=usuario_index&pagina={{i}}">{{i}}</a>
+
       {% endfor %}
+ 
+ 
     
 
   </div>

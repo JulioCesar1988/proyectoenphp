@@ -4,7 +4,7 @@
 /**
  * Description of ResourceRepository
  *
- * @author fede
+ * @author Contreras julio Grupo 52
  */
 class Usuario {
 
@@ -20,6 +20,7 @@ class Usuario {
     $query->execute(array($email, $username, $password,$activo,$first_name,$last_name));
     
   }
+  
    // buscar usuario por emails
   public function fetch($email){
     $query = $this->connection()->prepare("SELECT * FROM usuario WHERE (email = ?)");
@@ -35,61 +36,98 @@ class Usuario {
   }
 
 
+  public function listCant() {
+    $query = $this->connection()->prepare("SELECT * FROM usuario");
+    $query->execute();
+    return $query->rowCount();
+  }
 
-    public function usuario_eliminar($email) {
-      // borrar roles asociados
+// buscamos todos los Roles
+  public function fetchRoles() {
+    $query = $this->connection()->prepare("SELECT * FROM rol");
+    $query->execute();
+    return $query->fetchAll();
+  }
+
+// Dado el email de un usario hacemos la eliminacion del mismo , y limpiamos la tabla usuario_tiene_rol .
+  public function usuario_eliminar($email) {
+    // Limpieza de tabla usuario_tiene_rol
       $query = $this->connection()->prepare("SELECT id from usuario WHERE (email = ?)");
       $query->execute(array($email));
       $user_id = $query->fetch()['id'];
       $query = $this->connection()->prepare("DELETE from usuario_tiene_rol WHERE (usuario_id = ?)");
       $query->execute(array($usuario_id));
-
-      // borrar user
+      // borrar usuario
       $query = $this->connection()->prepare("DELETE FROM usuario WHERE (email = ?)");
       $query->execute(array($email));
   }
 
-
- // listar todos los usuarios . 
+ // Validamos los datos del login , emails , clave y vemos si esta activado. 
   public function validar_datos($email, $clave){
-    $query = $this->connection()->prepare("SELECT * FROM usuario WHERE (email = ? and password = ?)");
+    $query = $this->connection()->prepare("SELECT * FROM usuario WHERE (email = ? and password = ? and activo = 1)");
     $query->execute(array($email, $clave));
     return $query->fetch();
   }
 
-
-
- // listar todos los usuarios . 
-  public function update($email , $first_name,$last_name,$password,$username,$old_email) {
-    echo "# info que llega al modelo";
-    echo " EMAIL ".$email;
-    echo " FIRST_NAME ".$first_name;
-    echo " LAST_NAME ".$last_name;
-    echo " CLAVE ".$password;
-    echo " USERNAME ".$username;
-    echo " OLD NAME ".$old_email;
-
-    $query = $this->connection()->prepare("UPDATE usuario SET email = ? , first_name = ? , last_name = ?, password = ? ,username = ?  WHERE (email = ?)");
-    $query->execute(array($email , $first_name,$last_name,$password,$username,$old_email));
-  
+// Obtenemos los roles dado su role_id.
+  public function role($role_id) {
+      $query = $this->connection()->prepare("SELECT * FROM rol WHERE id = ?");
+      $query->execute(array($role_id));
+      return $query->fetch();
   }
 
- 
+// Actualizacion de los roles de un determinado usuario.
+  public function updateRoles($email, $roles) {
+      // update roles...
+      $query = $this->connection()->prepare("SELECT * FROM rol WHERE nombre IN ('".implode("','",$roles)."')  ");
+      $query->execute();
+      $roles = $query->fetchAll();
+      print_r($roles);
+      if (!empty($roles)) {
+        // hay algun rol valido, borramos todos los asignados a este usuario
+        // y setteamos esos
+        $query = $this->connection()->prepare("SELECT id from usuario WHERE (email = ?)");
+        $query->execute(array($email));
+        $usuario_id = $query->fetch()['id'];
+        $query = $this->connection()->prepare("DELETE from usuario_tiene_rol WHERE (usuario_id = ?)");
+        $query->execute(array($usuario_id));
+        echo " usuario_id ->".$usuario_id;
+        foreach ($roles as $role) {
+          $query = $this->connection()->prepare("SELECT id from rol WHERE (nombre = ?)");
+          $query->execute(array($role['nombre']));
+          $rol_id = $query->fetch()['id'];
 
+          $query = $this->connection()->prepare("INSERT into usuario_tiene_rol (usuario_id,rol_id) VALUES (?, ?)");
+          $query->execute(array($usuario_id, $rol_id));
+        }
+      }
+
+  }
+
+// Buscamos los roles de un id_usuario , en la tabla usuario_tiene_rol
+  public function rolesForUser($id) {
+    $query = $this->connection()->prepare("SELECT * FROM usuario_tiene_rol WHERE usuario_id = ?");
+    $query->execute(array($id));
+    return $query->fetchAll();
+  }
+
+ // Actualizacion de un usuario datos del usuario y roles. 
+  public function update($email , $first_name,$last_name,$password,$username,$old_email,$roles) {
+    $query = $this->connection()->prepare("UPDATE usuario SET email = ? , first_name = ? , last_name = ?, password = ? ,username = ?  WHERE (email = ?)");
+    $query->execute(array($email , $first_name,$last_name,$password,$username,$old_email));
+    // vamos actualzar los  roles que tienen el usuario que editamos .
+    $this->updateRoles($old_email, $roles);
+  }
+
+// Funcion para bloquear .
   public function bloquear($email) {
-    echo "# info que llega al modelo";
-    echo " EMAIL ".$email;
-    echo " OLD NAME ".$old_email;
     $query = $this->connection()->prepare("UPDATE usuario SET activo = 0   WHERE (email = ?)");
     $query->execute(array($email));
   
   }
 
-  
+  // Funcion para desbloquear usuario . 
   public function desbloquear($email) {
-    echo "# info que llega al modelo";
-    echo " EMAIL ".$email;
-    echo " OLD NAME ".$old_email;
     $query = $this->connection()->prepare("UPDATE usuario SET activo = 1   WHERE (email = ?)");
     $query->execute(array($email));
   

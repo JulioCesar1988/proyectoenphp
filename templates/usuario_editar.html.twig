@@ -31,18 +31,20 @@
             <input class="form-control" type="text" name="last_name" value={{u.last_name}} required><br>
           </div>
           <div class="form-group">
-            <label>Roles</label>
+            <label>Roles Actuales del Usuario  </label>{{ old_email }}
             <br>
-            Roles setteados: ({% for rol in this_user_roles %}
+
+            {% for rol in this_user_roles %}
               {{rol}}
-            {% endfor %})<br>
+            {% endfor %}<br>
+            <p>Vuelva Asiganar los Roles para este usuario</p>
+
             {% for rol in roles %}
-              {{rol.name}}
+              {{rol.nombre}}
               <input type="checkbox" name="rol[]" value="{{rol.nombre}}"><br>
             {% endfor %}
           </div>
-  
-          <input type="submit" value="Actualizar">
+          <input class="btn btn-info" type="submit" value="Actualizar">
         </form>
       </div>
     </div>
