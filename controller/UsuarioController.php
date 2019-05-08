@@ -48,15 +48,29 @@ class UsuarioController {
         $usuario = new Usuario();
         $usuarios = $usuario->listAll();
         $view = new View_usuario();
-        
         $config = new Configuracion();
         $elementos_por_pagina =  $config->get_elementos_por_pagina();
         $cantidad_elementos = $usuario->listCant();
+        $paginas = ceil($cantidad_elementos / $elementos_por_pagina );
+        // Verificamos la existencia
+        if ($paginas == 0) { $paginas = 1; };
+
+        if (isset($_GET['pagina'])) {
+                $pagina = (int)$_GET['pagina'];
+        if($pagina > $paginas) {
+            $pagina = 1;
+            }
+        } else {
+            $pagina = 1;
+        }
+
+    // usuario_a_mostrar = lista_usuarios , ()(pagina -1)* cantidad_paginas),$numero_pagina 
+    $usuario_a_mostrar = array_slice($usuarios, (($pagina - 1) * $elementos_por_pagina), $elementos_por_pagina);
         session_start();
        if (isset($_SESSION['email'])) {
         # code...
            $logged_user = $_SESSION['email'];
-           $view->usuario_index($logged_user,$usuarios,$elementos_por_pagina,$cantidad_elementos);
+           $view->usuario_index($logged_user,$usuario_a_mostrar,$pagina,$paginas);
 
     } else {
         $mensaje =""; 
