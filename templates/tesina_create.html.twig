@@ -6,70 +6,81 @@
   <div class="container">
     <h2> Formulario de Tesina </h2>
     <form action="./index.php?action=tesina_add" method="POST">
-   <div class="form-group">
-<label for="inputsm">Titulo:</label>
-<input class="form-control input-sm" id="username" name="username" type="text" required="true">
+<div class="form-group">
+  <label for="inputsm">Titulo:</label>
+  <input class="form-control input-sm" id="titulo" name="titulo" type="text" required="true">
 </div>
 
-      <div class="form-group">
+<div class="form-group">
   <label for="comment"> Objetivos:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" rows="5" id="objetivos" name="objetivos"></textarea>
 </div>
 
-      <div class="form-group">
+<div class="form-group">
   <label for="comment"> Motivacion:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" rows="5" id="motivacion" name="motivacion"></textarea>
 </div>
 
-      <div class="form-group">
+<div class="form-group">
   <label for="comment"> Desarrollo propuesto:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" rows="5" id="propuesta" name="propuesta"></textarea>
 </div>
 
-      <div class="form-group">
+<div class="form-group">
   <label for="comment"> Resultados esperados:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" rows="5" id="resultados" name="resultados"></textarea>
 </div>
-     
 <div class="form-group">
   <label for="sel1">Clasificacion:</label>
-  <select class="form-control" id="sel1">
+  <select class="form-control" id="clasificacion" name="clasificacion">
     <option>select de Investigación teórica</option>
     <option>Investigación aplicada</option>
-    <option>Desarrollo
-Tecnológico</option>
+    <option>Desarrollo Tecnológico</option>
     <option>Temática de RS</option>
     <option>Transferencia tecnológica</option>
   </select>
 </div>   
+ <div class="form-group">
+    <label for="exampleSelect1">Plazo en Meses:</label>
+    <select class="form-control" id="meses" name="meses">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+      <option>11</option>
+      <option>12</option>
 
-   <div class="form-group">
-<label for="inputsm">Plazo de Meses:</label>
-<input class="form-control input-sm" id="username" name="username" type="text" required="true">
-</div>
-
+    </select>
+  </div>
 <div>
 <label for="inputsm">Director:</label>
-<input class="form-control input-sm" id="director" name="directir" type="text" required="true">
+<input class="form-control input-sm" id="director" name="director" type="text" required="true">
 </div>
-
 <div>
 <label for="inputsm">Codirector:</label>
 <input class="form-control input-sm" id="codirector" name="codirector" type="text" required="true">
 </div>
-
 <div>
 <label for="inputsm">Asesor profesional:</label>
-<input class="form-control input-sm" id="codirector" name="codirector" type="text" required="true">
+<input class="form-control input-sm" id="aprofesional" name="aprofesional" type="text" required="true">
 </div>
-
-
-
-  
+<div>
+<label for="inputsm">alumnos:</label>
+<input class="form-control input-sm" id="alumnos" name="alumnos" type="text" required="true">
+</div>
 <button type="submit" class="btn btn-primary">Agregar</button>
     </form>
   </div>
   {% include 'footer.html.twig' %}
   </body>
+<
+
+
 </html>
 

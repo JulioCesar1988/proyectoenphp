@@ -50,6 +50,37 @@ if (isset($_GET["action"])) {
       // tiene que venir los campos , analizar si pueden ir al controlador directamente
       TesinaController::getInstance()->tesina_create();
       break;
+      
+
+       case "tesina_add":
+      // Verificamos los datos de la tesina , antes de llamar al controlador y poder hacer tesina_new(parametros)
+      echo " # tesina_new # ";
+      echo " datos ";
+      echo " titulo ->          ".$_POST['titulo']."\n";
+      echo "  objetivos ->      ".$_POST['objetivos']."\n";
+      echo "  motivacion ->     ".$_POST['motivacion']."\n";
+      echo "  propuesta ->      ".$_POST['propuesta']."\n";
+      echo "  resultados ->     ".$_POST['resultados']."\n";
+      echo "  clasificacion ->  ".$_POST['clasificacion']."\n";
+      echo "  meses ->          ".$_POST['meses']."\n";
+      echo "  director ->       ".$_POST['director']."\n";
+      echo "  codirector ->     ".$_POST['codirector']."\n";
+      echo "  aprofesional ->   ".$_POST['aprofesional']."\n";
+      echo "  alumnos ->        ".$_POST['alumnos']."\n";
+       
+       $titulo        = $_POST['titulo'];
+       $objetivos     = $_POST['objetivos'];
+       $motivacion    = $_POST['motivacion']; 
+       $propuesta     = $_POST['propuesta']; 
+       $resultados    = $_POST['resultados']; 
+       $clasificacion = $_POST['clasificacion']; 
+       $meses         = $_POST['meses'];
+       $director      = $_POST['director']; 
+       $codirector    = $_POST['codirector']; 
+       $aprofesional  = $_POST['aprofesional']; 
+       $alumnos       = $_POST['alumnos'];
+      TesinaController::getInstance()->tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
+      break;
       case "configuracion":
       ConfiguracionController::getInstance()->get_configuracion();
       break;

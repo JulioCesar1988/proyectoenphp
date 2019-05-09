@@ -15,8 +15,8 @@ class View_tesina extends TwigView {
     }
 
     // vamos a mostrar todas las tesinas 
-    public function tesina_index() {
-        echo self::getTwig()->render('tesina_index.html.twig');
+    public function tesina_index($logged_user ,$tesinas){
+        echo self::getTwig()->render('tesina_index.html.twig',array('logged_user' => $logged_user,'tesinas' => $tesinas));
 
     }
 

@@ -4,36 +4,75 @@
   <body>
   {% include 'navbar.html.twig' %}
 
+
   <div class="container">
     <h2>Administracion de Tesinas</h2>
-    <p>En esta pantalla podemos hacer las operaciones de ABM para las Tesinas . </p>
+    <p>En esta pantalla podemos hacer las operaciones de ABM para las tesina. </p>
+    <center><a class="btn btn-info" href="./index.php?action=tesina_create">Agregar tesina</a></center>
+
+    
     <table class="table">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Email</th>
-          <th>Estado</th>
+          <th>titulo</th>
+          <th>objetivos</th>
+          <th>motivacion</th>
+          <th>propuesta</th>
+          <th>resultados</th>
+          <th>clasificacion</th>
+          <th>meses</th>
+          <th>director</th>
+          <th>codirector</th>
+          <th>aprofesional</th>
+          <th>alumnos</th>
         </tr>
       </thead>
       <tbody>
+          {% for tesina in tesinas %}
         <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>john@example.com</td>
-          <td>Bloqueado</td>
+          <td>{{tesina.titulo}}</td>
+          <td>{{tesina.objetivos}}</td>
+          <td>{{tesina.motivacion}}</td>
+          <td>{{tesina.propuesta}}</td>
+           <td>{{tesina.resultados}}</td>
+           <td>{{tesina.clasificacion}}</td>
+           <td>{{tesina.meses}}</td>
+           <td>{{tesina.director}}</td>
+           <td>{{tesina.codirector}}</td>
+           <td>{{tesina.aprofesional}}</td>
+           <td>{{tesina.alumnos}}</td>
           <div class="container">
-            <td><button type="button" class="btn btn-info">Actualizar</button></td>
-            <td><button type="button" class="btn btn-warning">Modificar</button></td>
-            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+
+            <td><a class="btn btn-info" href="./index.php?action=tesina_editar&id_tesina={{tesina.id_tesina}}" onclick="return confirm('¿Estás seguro que querés editar este tesina?');">Show</a></td>
+            <td><a class="btn btn-warning" href="./index.php?action=tesina_editar&id_tesina={{tesina.id_tesina}}" onclick="return confirm('¿Estás seguro que querés editar este tesina?');">editar</a></td>
+            <td><a class="btn btn-danger" href="./index.php?action=tesina_eliminar&tesina_email={{tesina.id_tesina}}" onclick="return confirm('¿Estás seguro que querés borrar esta tesina?');"><span class="glyphicon glyphicon-trash"> </span> Borrar</a></td>
+              <td><a class="btn btn-default" href="./index.php?action=tesina_bloquear&tesina_email={{tesina.email}}">
+              {% if tesina.activo == 0 %}
+              Desbloquear
+              {% else %}
+              Bloquear
+              {% endif %}
+              </a></td>
+
           </div>
         </tr>
-
+{% endfor %}
       </tbody>
 
     </table>
+ 
+   Paginas:
+      {% for i in 1..paginas %}
+      <a class="btn btn-primary" href="./index.php ?action=tesina_index&pagina={{i}}">{{i}}</a>
+
+      {% endfor %}
+ 
+ 
+    
 
   </div>
+
+
 
   {% include 'footer.html.twig' %}
   </body>

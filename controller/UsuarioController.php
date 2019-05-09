@@ -8,6 +8,7 @@ require_once("./model/configuracion.php");
  *
  * @author Contreras Julio
  */
+
 class UsuarioController {
     private static $instance;
     public static function getInstance() {
@@ -148,6 +149,8 @@ class UsuarioController {
     public function usuario_update( $email,$first_name,$last_name,$clave,$username,$old_email,$roles){
        $usuario = new Usuario();
        $usuario->update($email,$first_name,$last_name,$clave,$username,$old_email,$roles);
+
+       
         header('location:./index.php?action=usuario_index');
     }
    
