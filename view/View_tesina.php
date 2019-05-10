@@ -14,9 +14,8 @@ class View_tesina extends TwigView {
 
     }
 
-    // vamos a mostrar todas las tesinas 
-    public function tesina_index($logged_user ,$tesinas){
-        echo self::getTwig()->render('tesina_index.html.twig',array('logged_user' => $logged_user,'tesinas' => $tesinas));
+    public function tesina_index($logged_user ,$tesinas,$paginas,$pagina){
+        echo self::getTwig()->render('tesina_index.html.twig',array('logged_user' => $logged_user ,'tesinas' => $tesinas,'paginas'=>$paginas,'pagina'=>$pagina ));
 
     }
 
@@ -26,8 +25,8 @@ class View_tesina extends TwigView {
     }
 
    // formulario para la  creacion de la tesina.
-    public function tesina_create() {
-        echo self::getTwig()->render('tesina_create.html.twig');
+    public function tesina_create($logged_user) {
+        echo self::getTwig()->render('tesina_create.html.twig',array('logged_user' => $logged_user ));
 
     }
 

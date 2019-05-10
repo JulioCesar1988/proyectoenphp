@@ -20,11 +20,6 @@ class ResourceController {
 
     }
 
-    public function listResources(){
-        $resources = ResourceRepository::getInstance()->listAll();
-        $view = new SimpleResourceList();
-        $view->show($resources);
-    }
 
     public function index(){
     session_start();

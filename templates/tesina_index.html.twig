@@ -3,14 +3,10 @@
   {% include 'head.html.twig' %}
   <body>
   {% include 'navbar.html.twig' %}
-
-
   <div class="container">
     <h2>Administracion de Tesinas</h2>
     <p>En esta pantalla podemos hacer las operaciones de ABM para las tesina. </p>
     <center><a class="btn btn-info" href="./index.php?action=tesina_create">Agregar tesina</a></center>
-
-    
     <table class="table">
       <thead>
         <tr>
@@ -42,7 +38,6 @@
            <td>{{tesina.aprofesional}}</td>
            <td>{{tesina.alumnos}}</td>
           <div class="container">
-
             <td><a class="btn btn-info" href="./index.php?action=tesina_editar&id_tesina={{tesina.id_tesina}}" onclick="return confirm('¿Estás seguro que querés editar este tesina?');">Show</a></td>
             <td><a class="btn btn-warning" href="./index.php?action=tesina_editar&id_tesina={{tesina.id_tesina}}" onclick="return confirm('¿Estás seguro que querés editar este tesina?');">editar</a></td>
             <td><a class="btn btn-danger" href="./index.php?action=tesina_eliminar&tesina_email={{tesina.id_tesina}}" onclick="return confirm('¿Estás seguro que querés borrar esta tesina?');"><span class="glyphicon glyphicon-trash"> </span> Borrar</a></td>
