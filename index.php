@@ -66,7 +66,7 @@ if (isset($_GET["action"])) {
       echo "  director ->       ".$_POST['director']."\n";
       echo "  codirector ->     ".$_POST['codirector']."\n";
       echo "  aprofesional ->   ".$_POST['aprofesional']."\n";
-      echo "  alumnos ->        ".$_POST['alumnos']."\n";
+      //echo "  alumnos ->        ".$_POST['alumnos']."\n";
        
        $titulo        = $_POST['titulo'];
        $objetivos     = $_POST['objetivos'];
@@ -78,8 +78,10 @@ if (isset($_GET["action"])) {
        $director      = $_POST['director']; 
        $codirector    = $_POST['codirector']; 
        $aprofesional  = $_POST['aprofesional']; 
-       $alumnos       = $_POST['alumnos'];
-      TesinaController::getInstance()->tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
+       //print_r($_POST['alumnos']);
+       //$alumnos       = $_POST['alumnos'];
+       $alumnos = "vamos a ver si podemos obtener el di de la tesina que se guarda";
+       TesinaController::getInstance()->tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
       break;
       case "configuracion":
       ConfiguracionController::getInstance()->get_configuracion();

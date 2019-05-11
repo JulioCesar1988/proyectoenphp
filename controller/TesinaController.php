@@ -32,9 +32,14 @@ class TesinaController {
     // tenemos que pasar la session 
         session_start();
        $logged_user = $_SESSION['email'];
+          
+
+        $usuario = new Usuario();        
+        $usuarios = $usuario->listAll();
+    
 
         $view = new View_tesina();
-        $view->tesina_create($logged_user);
+        $view->tesina_create($logged_user,$usuarios);
 
     }
 
@@ -43,7 +48,9 @@ public function tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados
        $logged_user = $_SESSION['email'];
         // le pedimos la modelo que cargue la tesina a la BD . 
         $tesina = new Tesina();
-        $tesina->insert($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
+        // Estado inicial 
+        $estado = "Propuesta Entregada";
+        $tesina->insert($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado);
         //hacemos render de la vista de las tesinas.
         $tesina = new Tesina();        
         $tesinas = $tesina->listAll();
@@ -63,18 +70,15 @@ public function tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados
                 $pagina = (int)$_GET['pagina'];
         if($pagina > $paginas) {
             $pagina = 1;
-            }
+            
         } else {
             $pagina = 1;
         }
         $tesina_a_mostrar = array_slice($tesinas, (($pagina - 1) * $elementos_por_pagina), $elementos_por_pagina);
-        
-
-
         $view->tesina_index($logged_user,$tesina_a_mostrar,$paginas,$pagina,$pagina);
 
 }
-
+}
 
    // listado de todos las tesinas
     public function tesina_index(){

@@ -13,12 +13,15 @@ class Tesina {
   } 
  
     // INSERT DE LA TESINA
-    public function insert($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos) {
-    $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,alumnos) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos));
-    
+    public function insert($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado) {
+    $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,alumnos,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado));
+    echo  $query->insert_id;
+    //alumnos
   }
   
+
+
 
    // BUSCAR TESINA POR ID .
   public function fetch($id_tesina){

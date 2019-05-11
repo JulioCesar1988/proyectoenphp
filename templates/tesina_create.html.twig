@@ -70,17 +70,27 @@
 <label for="inputsm">Asesor profesional:</label>
 <input class="form-control input-sm" id="aprofesional" name="aprofesional" type="text" required="true">
 </div>
-<div>
-<label for="inputsm">alumnos:</label>
-<input class="form-control input-sm" id="alumnos" name="alumnos" type="text" required="true">
-</div>
+ <div class="form-group">
+    <label for="sel1">Lista de Alumnos :</label>
+    <select class="js-example-basic-multiple" name="alumnos[]" multiple="multiple" >
+     {% for alumno in alumnos %}
+    <option value=" {{alumno.id}}"> {{alumno.email}} </option>
+    {% endfor %}
+    </select>
+    </div>
+
 <button type="submit" class="btn btn-primary">Agregar</button>
     </form>
   </div>
   {% include 'footer.html.twig' %}
   </body>
-<
 
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
 
 </html>
 
