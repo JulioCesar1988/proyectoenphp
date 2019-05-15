@@ -12,21 +12,37 @@ class Tesina {
     return $connection;
   } 
  
+
+
+ public function tesina_usuario($alumnos,$id_tesina){
+  $activado = 1;
+  foreach ($alumnos as $a) {
+    $query = $this->connection()->prepare("INSERT into tesina_alumno (id_tesina,id_alumno,activado) VALUES (?, ? , ?)");
+    $query->execute(array($id_tesina,$a,$activado));
+    }
+
+ }
+   
+
     // INSERT DE LA TESINA
     public function insert($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado) {
-    $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,alumnos,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado));
-    echo  $query->insert_id;
-    //alumnos
+    $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado));
+   
+  // proceso para almacenar 
+    //$id_tesina = 1234;
+    //$stmt->execute();
+   //$id_tesina = $con->lastInsertId();
+   $id_tesina =  12;
+   $this->tesina_usuario($alumnos,$id_tesina);
   }
   
-
 
 
    // BUSCAR TESINA POR ID .
   public function fetch($id_tesina){
     $query = $this->connection()->prepare("SELECT * FROM tesina WHERE (id_tesina = ?)");
-    $query->execute(array($tesina));
+    $query->execute(array($id_tesina));
     return $query->fetch();
   }
 
@@ -48,37 +64,61 @@ class Tesina {
 
 // ELIMINACION DE TESINA .
   public function tesina_eliminar($id_tesina) {
-    // Limpieza de tabla usuario_tiene_rol
+      // Limpiamos primero las tablas de tesina_alumno
+      $q = $this->connection()->prepare("DELETE FROM tesina_alumno WHERE (id_tesina = ?)");
+      $q->execute(array($id_tesina));
       $query = $this->connection()->prepare("DELETE FROM tesina WHERE (id_tesina = ?)");
       $query->execute(array($id_tesina));
-  }
-
-
-
-
-
- // UPDATE DE LA TESINA  
-  public function update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$id_tesina) {
-  $query = $this->connection()->prepare("UPDATE titulo = ?,objetivos = ?,motivacion = ?,propuesta = ?,resultados = ?,clasificacion = ?,meses = ?,director = ? ,codirector = ?,aprofesional = ?,alumnos = ?  WHERE (id_tesina = ?)");
-    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$id_tesina,$id_tesina));
-  }
-
-
-//PODRIAMOS USAR ESTOS METODOS PARA APROBAR O RECHARZAR TESINA DEL LADO DEL PERSONA DEL ADMINISTRACION 
-// Funcion para bloquear .
-  public function bloquear($email) {
-    $query = $this->connection()->prepare("UPDATE usuario SET activo = 0   WHERE (email = ?)");
-    $query->execute(array($email));
-  
-  }
-  // Funcion para desbloquear usuario . 
-  public function desbloquear($email) {
-    $query = $this->connection()->prepare("UPDATE usuario SET activo = 1   WHERE (email = ?)");
-    $query->execute(array($email));
   
   }
 
 
+
+
+
+
+    // INSERT DE LA TESINA
+    public function update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado,$id_tesina) {
+    $query = $this->connection()->prepare("UPDATE tesina set titulo = ? ,
+                                                      objetivos = ? ,
+                                                     motivacion = ? ,
+                                                      propuesta = ? , 
+                                                     resultados = ? ,
+                                                  clasificacion = ? ,
+                                                          meses = ? ,
+                                                       director = ? ,
+                                                     codirector = ? , 
+                                                   aprofesional = ? , 
+                                                   estado = ? WHERE ( id_tesina = ? )");
+    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado,$id_tesina));
+   
+  // proceso para almacenar 
+    //$id_tesina = 1234;
+    //$stmt->execute();
+   //$id_tesina = $con->lastInsertId();
+   $id_tesina =  12;
+   $this->tesina_usuario($alumnos,$id_tesina);
+  }
+
+// APROBAR TESINA .
+  public function tesinaAprobada($id_tesina) {
+    echo "llego al modelo";
+    $query = $this->connection()->prepare("UPDATE tesina SET estado = 'Propuesta Aprobada'   WHERE (id_tesina = ?)");
+    $query->execute(array($id_tesina));
+  
+  }
+// RECHAZAR TESINA .  
+  public function tesinaRechazada($id_tesina) {
+    $query = $this->connection()->prepare("UPDATE tesina SET estado = 'Propuesta rechazada'   WHERE (id_tesina = ?)");
+    $query->execute(array($id_tesina));
+  
+  }
+// PROPUESTA ACEPTADA . 
+  public function tesinaEntregada($id_tesina) {
+    $query = $this->connection()->prepare("UPDATE tesina SET estado = 'Propuesta entregada'   WHERE (id_tesina = ?)");
+    $query->execute(array($id_tesina));
+  
+  }
 
 
 }

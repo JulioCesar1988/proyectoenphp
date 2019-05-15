@@ -50,6 +50,69 @@ if (isset($_GET["action"])) {
       // tiene que venir los campos , analizar si pueden ir al controlador directamente
       TesinaController::getInstance()->tesina_create();
       break;
+
+       case "tesina_eliminar":
+      // tiene que venir los campos , analizar si pueden ir al controlador directamente
+       $id_tesina = $_GET['id_tesina'];
+      TesinaController::getInstance()-> tesina_eliminar($id_tesina);
+      break;
+
+        case "tesina_editar":
+      // tiene que venir los campos , analizar si pueden ir al controlador directamente
+       $id_tesina = $_GET['id_tesina'];
+      TesinaController::getInstance()->tesina_editar($id_tesina);
+      break;
+      
+      
+      case "tesina_update":
+      echo " # tesina_new # ";
+      echo " datos ";
+      echo " titulo ->          ".$_POST['titulo']."\n";
+      echo "  objetivos ->      ".$_POST['objetivos']."\n";
+      echo "  motivacion ->     ".$_POST['motivacion']."\n";
+      echo "  propuesta ->      ".$_POST['propuesta']."\n";
+      echo "  resultados ->     ".$_POST['resultados']."\n";
+      echo "  clasificacion ->  ".$_POST['clasificacion']."\n";
+      echo "  meses ->          ".$_POST['meses']."\n";
+      echo "  director ->       ".$_POST['director']."\n";
+      echo "  codirector ->     ".$_POST['codirector']."\n";
+      echo "  aprofesional ->   ".$_POST['aprofesional']."\n";
+      //echo "  alumnos ->        ".$_POST['alumnos']."\n";
+       
+       $titulo        = $_POST['titulo'];
+       $objetivos     = $_POST['objetivos'];
+       $motivacion    = $_POST['motivacion']; 
+       $propuesta     = $_POST['propuesta']; 
+       $resultados    = $_POST['resultados']; 
+       $clasificacion = $_POST['clasificacion']; 
+       $meses         = $_POST['meses'];
+       $director      = $_POST['director']; 
+       $codirector    = $_POST['codirector']; 
+       $aprofesional  = $_POST['aprofesional']; 
+       //print_r($_POST['alumnos']);
+       $alumnos       = $_POST['alumnos'];
+       $id_tesina = $_GET['id_tesina'];
+       TesinaController::getInstance()->tesina_update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$id_tesina);
+      break;
+
+
+      
+
+      
+      // APROBACION DE TESINA 
+      case "aprobartesina":
+      $id_tesina = $_GET['id_tesina'];
+      TesinaController::getInstance()->tesinaAprobada($id_tesina);
+      break;
+
+      // RECHAZAR TESINA 
+      case "rechazartesina":
+      $id_tesina = $_GET['id_tesina'];
+      TesinaController::getInstance()->tesinaRechazar($id_tesina);
+      break;
+
+
+
       
 
        case "tesina_add":
@@ -79,10 +142,13 @@ if (isset($_GET["action"])) {
        $codirector    = $_POST['codirector']; 
        $aprofesional  = $_POST['aprofesional']; 
        //print_r($_POST['alumnos']);
-       //$alumnos       = $_POST['alumnos'];
-       $alumnos = "vamos a ver si podemos obtener el di de la tesina que se guarda";
+       $alumnos       = $_POST['alumnos'];
+      
        TesinaController::getInstance()->tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
       break;
+
+
+
       case "configuracion":
       ConfiguracionController::getInstance()->get_configuracion();
       break;

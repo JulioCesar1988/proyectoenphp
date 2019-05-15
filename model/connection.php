@@ -1,6 +1,6 @@
   <?php
   class Connection {
-    private $connection;
+    public $connection;
     function __construct(){
       try {
         $con = new PDO("mysql:host=localhost;dbname=grupo52","grupo52","YmY3NzI0OGU0ZWQ5");
@@ -19,5 +19,12 @@
     public function Close(){
       $this->connection = null;
     }
+
+
+      public function lastInsertId(){
+        return $this->connection->lastInsertId();
+    }
+
   }
+
   ?>

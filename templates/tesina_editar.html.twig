@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'head.html.twig' %}
+  <body>
+  {% include 'navbar.html.twig' %}
+  <div class="container">
+    <h2> Formulario de Tesina </h2>
+    <form action="./index.php?action=tesina_update&id_tesina={{tesina.id_tesina}}" method="POST">
+<div class="form-group">
+  <label for="inputsm">Titulo:</label>
+  <input class="form-control input-sm" id="titulo" name="titulo" type="text" required="true" value="{{tesina.titulo}}">
+</div>
+
+<div class="form-group">
+  <label for="comment"> Objetivos:</label>
+  <textarea class="form-control" rows="5" id="objetivos" name="objetivos" >{{tesina.objetivos}}</textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment"> Motivacion:</label>
+  <textarea class="form-control" rows="5" id="motivacion" name="motivacion">{{tesina.motivacion}}</textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment"> Desarrollo propuesto:</label>
+  <textarea class="form-control" rows="5" id="propuesta" name="propuesta">{{tesina.propuesta}}</textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment"> Resultados esperados:</label>
+  <textarea class="form-control" rows="5" id="resultados" name="resultados">{{tesina.resultados}}</textarea>
+</div>
+<div class="form-group">
+  <label for="sel1">Clasificacion:</label>
+  <select class="form-control" id="clasificacion" name="clasificacion">
+    <option>{{tesina.clasificacion}}</option>
+    <option>select de Investigación teórica</option>
+    <option>Investigación aplicada</option>
+    <option>Desarrollo Tecnológico</option>
+    <option>Temática de RS</option>
+    <option>Transferencia tecnológica</option>
+  </select>
+</div>   
+ <div class="form-group">
+    <label for="exampleSelect1">Plazo en Meses:</label>
+    <select class="form-control" id="meses" name="meses">
+    
+       <option>{{tesina.meses}}</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+      <option>11</option>
+      <option>12</option>
+
+    </select>
+  </div>
+<div>
+<label for="inputsm">Director:</label>
+<input class="form-control input-sm" id="director" name="director" type="text" required="true" value="{{tesina.director}}">
+</div>
+<div>
+<label for="inputsm">Codirector:</label>
+<input class="form-control input-sm" id="codirector" name="codirector" type="text" required="true" value="{{tesina.codirector}}">
+</div>
+<div>
+<label for="inputsm">Asesor profesional:</label>
+<input class="form-control input-sm" id="aprofesional" name="aprofesional" type="text" required="true" value="{{tesina.aprofesional}}">
+</div>
+ <div class="form-group">
+    <label for="sel1">Lista de Alumnos :</label>
+    <select class="js-example-basic-multiple" name="alumnos[]" multiple="multiple" >
+     {% for alumno in alumnos %}
+    <option value=" {{alumno.id}}"> {{alumno.email}} </option>
+    {% endfor %}
+    </select>
+    </div>
+
+<button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+  </div>
+  {% include 'footer.html.twig' %}
+  </body>
+
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
+
+</html>

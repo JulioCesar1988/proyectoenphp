@@ -18,8 +18,8 @@ class View_tesina extends TwigView {
     }
 
     // formulario para la edicion de la tesina.
-    public function tesina_edit($id_tesina) {
-            echo self::getTwig()->render('tesina_edit.html.twig');
+    public function tesina_editar($logged_user,$tesina ,$alumnos) {
+            echo self::getTwig()->render('tesina_editar.html.twig',array('logged_user' => $logged_user , 'tesina' => $tesina ,'alumnos' => $alumnos));
     }
 
    // formulario para la  creacion de la tesina.
