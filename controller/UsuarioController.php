@@ -79,8 +79,6 @@ class UsuarioController {
     }
 
     
-
-
    // FORMULARIO PARA EDITAR USUARIO .
     public function usuario_editar($email){
         $usuario = new Usuario();  
@@ -106,8 +104,6 @@ class UsuarioController {
              }        
         }
 
-
-
     // USUARIO_DISTROY 
     public function usuario_eliminar($email){
      $usuario = new Usuario();  
@@ -130,16 +126,12 @@ class UsuarioController {
         session_start();
         $_SESSION['email'] = $email;
         $logged_user = $email;
-
         $view = new Home();
         $view->index($logged_user);
-     
      } else {
-         
         $mensaje ="error"; 
         $view = new View_usuario();
         $view->login($mensaje);
-         
       }
 
     }
@@ -149,9 +141,7 @@ class UsuarioController {
     public function usuario_update( $email,$first_name,$last_name,$clave,$username,$old_email,$roles){
        $usuario = new Usuario();
        $usuario->update($email,$first_name,$last_name,$clave,$username,$old_email,$roles);
-
-       
-        header('location:./index.php?action=usuario_index');
+       header('location:./index.php?action=usuario_index');
     }
    
     // USUARIO_BLOQUEAR
@@ -162,15 +152,11 @@ class UsuarioController {
       if ($bloqueado) {
           # code...
         $usuario->bloquear($email);
-       
       } else {
           # code...
         $usuario->desbloquear($email);
-       
       }
-      
-        header('location:./index.php?action=usuario_index');
-
+      header('location:./index.php?action=usuario_index');
     }
 
 

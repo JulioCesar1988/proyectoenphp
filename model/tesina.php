@@ -113,10 +113,20 @@ class Tesina {
     $query->execute(array($id_tesina));
   
   }
+
 // PROPUESTA ACEPTADA . 
   public function tesinaEntregada($id_tesina) {
     $query = $this->connection()->prepare("UPDATE tesina SET estado = 'Propuesta entregada'   WHERE (id_tesina = ?)");
     $query->execute(array($id_tesina));
+  
+  }
+
+
+
+  // UPDATE MOTIVO DE RECHAZON . 
+  public function update_rechazo($id_tesina,$motivo_rechazo) {
+    $query = $this->connection()->prepare("UPDATE tesina SET motivo_rechazo = ?  WHERE (id_tesina = ?)");
+    $query->execute(array($id_tesina,$motivo_rechazo));
   
   }
 

@@ -28,4 +28,10 @@ class View_tesina extends TwigView {
 
     }
 
+
+    // TESINA MOSTRAR , PUEDE SER QUE PONGAMOS EL BONTON DE MOTIVO .
+    public function tesina_mostrar($logged_user,$tesina ,$alumnos) {
+            echo self::getTwig()->render('tesina_mostrar.html.twig',array('logged_user' => $logged_user , 'tesina' => $tesina ,'alumnos' => $alumnos));
+    }
+
 }

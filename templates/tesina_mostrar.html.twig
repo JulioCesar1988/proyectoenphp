@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'head.html.twig' %}
+  <body>
+  {% include 'navbar.html.twig' %}
+  
+<div class="container">
+  <h2> Tesina </h2>
+  <h4>Estado de tesina : <small>{{tesina.estado}}</small></h4>
+  <div class="container"> 
+  <h4>Titulo : <small>{{tesina.titulo}}</small></h4>
+  <h4>Motivacion : <small>{{tesina.motivacion}}</small></h4>
+  <h4>Resultados : <small>{{tesina.resultados}}</small></h4>
+  <h4>Clasificacion : <small>{{tesina.clasificacion}}</small></h4>
+  <h4>Director : <small>{{tesina.director}}</small></h4>
+  <h4>Co-Director : <small>{{tesina.codirector}}</small></h4>
+  <h4>Asesesor Profesional : <small>{{tesina.aprofesional}}</small></h4>
+<div class="container">
+  <h4>Alumnos : </h4>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Emails</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+      </tr>
+    </thead>
+     {% for alumno in alumnos %}
+    <tbody>
+      <tr>
+        <td>{{alumno.email}}</td>
+        <td>{{alumno.username}}</td>
+        <td>{{alumno.last_name}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+<form action="./index.php?action=motivo_rechazo&id_tesina={{tesina.id_tesina}}" method="POST">
+  <label for="comment">motivos del rechazo : </label>
+  <textarea class="form-control" rows="5" id="comment" required="true" name="motivo_rechazo"></textarea>
+  <button type="submit" class="btn btn-danger" >Rechazar propuesta</button>
+</form>
+</div>
+
+  {% include 'footer.html.twig' %}
+  </body>
+
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
+
+</html>

@@ -110,9 +110,22 @@ if (isset($_GET["action"])) {
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesinaRechazar($id_tesina);
       break;
+   
 
 
+      // MOSTRAR TESINA CON ALUMNOS
+      case "tesina_mostrar":
+      $id_tesina = $_GET['id_tesina'];
+      TesinaController::getInstance()->tesina_mostrar($id_tesina);
+      break;
 
+
+      case "motivo_rechazo":
+      $id_tesina = $_GET['id_tesina'];
+      $motivo_rechazo = $_POST['motivo_rechazo'];
+      TesinaController::getInstance()->motivo_rechazo($id_tesina,$motivo_rechazo);
+      break;
+      
       
 
        case "tesina_add":

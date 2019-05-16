@@ -85,6 +85,28 @@ class TesinaController {
 
 
 
+   // EDITAR TESINA render formulario de edicion 
+    public function tesina_mostrar($id_tesina){
+    // tenemos que pasar la session .
+        session_start();
+        $logged_user = $_SESSION['email'];
+         // modelo del tesina 
+        $tesinas = new Tesina();
+         // pedimos a la tesina que queremos modificar .
+        $tesina = $tesinas->fetch($id_tesina);
+        // ALUMNOS QUE ESTAN EN LA TESINA 
+        $usuarios = new Usuario();
+        $alumnos =  $usuarios->listAll(); 
+         // hacemos el render del formulario de modificacion con los datos que traemos del modelo .
+        $view = new View_tesina();
+        $view->tesina_mostrar($logged_user,$tesina,$alumnos);
+
+    }
+
+
+
+
+
 
    // Creacion del formulario para dar de alta una tesina.
     public function tesina_create(){
@@ -204,18 +226,16 @@ public function tesina_update($titulo,$objetivos,$motivacion,$propuesta,$resulta
 
 
 
+// TESINA UPDATE MOTIVO_RECHAZO
+    public function motivo_rechazo( $id_tesina,$motivo_rechazo){
+       $tesina = new Tesina();
+       $this->tesinaRechazar( $id_tesina);
+       $tesina->update_rechazo($motivo_rechazo,$id_tesina);
+       header('location:./index.php?action=tesina_index');
 
+    }
 
-
-
-
-
-
-
-
-
-
-
+    
 
 
    // listado de todos las tesinas
