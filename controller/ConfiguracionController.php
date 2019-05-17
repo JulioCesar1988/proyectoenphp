@@ -41,11 +41,19 @@ class ConfiguracionController {
         $view->sin_permisos($logged_user);
         }
 
+    }
+
+  public function error_pagina(){
+       session_start();
+       if (isset($_SESSION['email'])) {
+        $logged_user = $_SESSION['email'];
+        $view = new View_configuracion();
+        $view->error_pagina($logged_user);
+        }
+
 
 
     }
-
-
     
 
     

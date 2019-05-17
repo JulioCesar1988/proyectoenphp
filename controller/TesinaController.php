@@ -289,10 +289,25 @@ public function tesina_update($titulo,$objetivos,$motivacion,$propuesta,$resulta
 
 // TESINA UPDATE MOTIVO_RECHAZO
     public function motivo_rechazo( $id_tesina,$motivo_rechazo){
+       session_start();
+       if (isset($_SESSION['email'])) {
+            $usuario_logeado = $_SESSION['email'];
+            $usuario = new Usuario();
+        if ($usuario->verificarAccion($usuario_logeado,'tesina_rechazar')){
+
        $tesina = new Tesina();
        $this->tesinaRechazar( $id_tesina);
        $tesina->update_rechazo($motivo_rechazo,$id_tesina);
        header('location:./index.php?action=tesina_index');
+      }else{
+            header('location:./index.php?action=sin_permisos');
+
+      }
+   }else{
+     header('location:./index.php?action=sin_login');
+   }
+
+
 
     }
 

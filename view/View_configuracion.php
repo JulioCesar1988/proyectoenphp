@@ -20,5 +20,9 @@ class View_configuracion extends TwigView {
         echo self::getTwig()->render('sin_permisos.html.twig',array('logged_user' => $logged_user ));
     }
 
+      public function error_pagina($logged_user) {
+        echo self::getTwig()->render('error_pagina.html.twig',array('logged_user' => $logged_user ));
+    }
+
 
 }

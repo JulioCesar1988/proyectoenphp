@@ -50,7 +50,7 @@ if (isset($_GET["action"])) {
        $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()-> tesina_eliminar($id_tesina);
       }else {
-        echo "error campo";
+        header('location:./index.php?action=error_pagina');
       }
 
       break;
@@ -61,7 +61,7 @@ if (isset($_GET["action"])) {
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesina_editar($id_tesina);
       }else{
-        echo "error";
+        header('location:./index.php?action=error_pagina');
       }
 
       break;
@@ -100,7 +100,7 @@ if (isset($_GET["action"])) {
 
        TesinaController::getInstance()->tesina_update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$id_tesina);
         }else{
-          echo "error";
+          header('location:./index.php?action=error_pagina');
 
         }
 
@@ -112,7 +112,7 @@ if (isset($_GET["action"])) {
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesinaAprobada($id_tesina);
       }else{
-        echo "error";
+        header('location:./index.php?action=error_pagina');
       }
       break;
 
@@ -122,7 +122,7 @@ if (isset($_GET["action"])) {
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesinaRechazar($id_tesina);
       }else {
-        echo "Error";
+        header('location:./index.php?action=error_pagina');
       }
       break;
 
@@ -131,7 +131,7 @@ if (isset($_GET["action"])) {
       if (!empty($_GET['id_tesina'])){
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesina_mostrar($id_tesina);
-      }else{echo "Error";}
+      }else{header('location:./index.php?action=error_pagina'); }
       break;
 
       // ACTUALIZACION DEL MOTIVO 
@@ -140,7 +140,7 @@ if (isset($_GET["action"])) {
       $id_tesina = $_GET['id_tesina'];
       $motivo_rechazo = $_POST['motivo_rechazo'];
       TesinaController::getInstance()->motivo_rechazo($id_tesina,$motivo_rechazo);
-      }else{echo "error";}
+      }else{header('location:./index.php?action=error_pagina');}
       break;
       
       
@@ -171,7 +171,7 @@ if (isset($_GET["action"])) {
        TesinaController::getInstance()->tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
         }
         else{
-          echo "error";
+          header('location:./index.php?action=error_pagina');
 
         }
 
@@ -190,15 +190,15 @@ if (isset($_GET["action"])) {
             !empty($_POST['elementos_por_pagina'])  &&
             !empty($_POST['habilitado']) ){
 
-      $titulo = $_POST['titulo'];
-      $email = $_POST['email'];
-      $descripcion = $_POST['descripcion'];
+      $titulo               = $_POST['titulo'];
+      $email                = $_POST['email'];
+      $descripcion          = $_POST['descripcion'];
       $elementos_por_pagina = $_POST['elementos_por_pagina'];
-      $habilitado = $_POST['habilitado'];
+      $habilitado           = $_POST['habilitado'];
       ConfiguracionController::getInstance()->configuracion_update($titulo , $descripcion,$email , $elementos_por_pagina , $habilitado);
       }else {
 
-        echo "error";
+        header('location:./index.php?action=error_pagina');
       }
 
       break;
@@ -211,6 +211,10 @@ if (isset($_GET["action"])) {
       //  SIN PERMISOS 
       case "sin_permisos":
       ConfiguracionController::getInstance()->sin_permisos();
+      break;
+      //  ERROR PAGINA 
+      case "error_pagina":
+      ConfiguracionController::getInstance()->error_pagina();
       break;
 
 
@@ -235,7 +239,7 @@ if (isset($_GET["action"])) {
       
       }else{
             // ENVIAR A UNA VISTA DE ERRORES 
-           echo " falta algun campo ";
+           header('location:./index.php?action=error_pagina');
       }
       break;
 
@@ -247,14 +251,14 @@ if (isset($_GET["action"])) {
       
       }else{
             // ENVIAR A UNA VISTA DE ERRORES 
-           echo " falta algun campo ";
+            header('location:./index.php?action=error_pagina');
       }
 
       break;
      
       // CREACION DE USUARIO PERO DEL ADMINISTRACION 
       case "usuario_crear":    
-      UsuarioController::getInstance()->usuario_crear();
+      UsuarioController::getInstance()->usuario_crear(); //##########################
       break;
       
 
@@ -284,7 +288,7 @@ if (isset($_GET["action"])) {
       }
       else {
             // ENVIAR A UNA VISTA DE ERRORES 
-           echo " falta algun campo ";         
+           header('location:./index.php?action=error_pagina');   
            }
       break;
 
@@ -296,12 +300,17 @@ if (isset($_GET["action"])) {
 
       // USUARIO_NEW  CREACION DE UN USUARIO PARA LA APROBACION POR PARTE DEL PERSONAL DE ADMINISTRACION. 
       case "usuario_add":
-      if (!empty($_POST['email']) && !empty($_POST['pwd']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['username'])) {
+      if (!empty($_POST['email']) &&
+          !empty($_POST['pwd'])   &&
+          !empty($_POST['first_name']) && 
+          !empty($_POST['last_name']) && 
+          !empty($_POST['username'])) {
           $email = $_POST['email'];
           $pwd = $_POST['pwd'];
           $first_name = $_POST['first_name'];
           $last_name = $_POST['last_name'];
           $username = $_POST['username'];
+
           UsuarioController::getInstance()->usuario_add($email,$pwd,$first_name,$last_name,$username);
           } else {
           UsuarioController::getInstance()->usuario_registrarse();

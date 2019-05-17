@@ -30,8 +30,6 @@ class Tesina {
     $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado));
    
    
-    
-
    //$id =  $this->connection()->lastInsertId();
    //echo "algo".$id;
    //$id_tesina = $connection->lastInsertId();
