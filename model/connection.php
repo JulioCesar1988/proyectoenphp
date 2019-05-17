@@ -16,14 +16,12 @@
       }
       return $this->connection->connection;
     }
+
     public function Close(){
       $this->connection = null;
     }
 
-
-      public function lastInsertId(){
-        return $this->connection->lastInsertId();
-    }
+    
 
   }
 

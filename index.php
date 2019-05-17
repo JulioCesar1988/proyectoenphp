@@ -17,17 +17,12 @@ require_once('view/Home.php');
 require_once('view/View_usuario.php');
 require_once('view/View_tesina.php');
 require_once('view/View_configuracion.php');
-
-
-
-
 $config =  New Configuracion();
 $hablitado = $config->get_hablitado();
 if (!$hablitado) {
    ConfiguracionController::getInstance()->show_mantenimiento();
 
 } else {
-
 // SI LA PAGINA NO ESTA HABILITADA , NO TIENE QUE PODER NINGUNA ACCION.
 if (isset($_GET["action"])) {
   switch($_GET["action"]) {
@@ -47,38 +42,48 @@ if (isset($_GET["action"])) {
       TesinaController::getInstance()->tesina_index();
       break;
       case "tesina_create":
-      // tiene que venir los campos , analizar si pueden ir al controlador directamente
       TesinaController::getInstance()->tesina_create();
       break;
 
        case "tesina_eliminar":
-      // tiene que venir los campos , analizar si pueden ir al controlador directamente
+      if (!empty($_GET['id_tesina'])) {
        $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()-> tesina_eliminar($id_tesina);
+      }else {
+        echo "error campo";
+      }
+
       break;
 
-        case "tesina_editar":
-      // tiene que venir los campos , analizar si pueden ir al controlador directamente
-       $id_tesina = $_GET['id_tesina'];
+      // GENERACION DEL FORMULARIO DE EDICION DE LA TESINA .
+      case "tesina_editar":
+      if (!empty($_GET['id_tesina'])) {
+      $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesina_editar($id_tesina);
+      }else{
+        echo "error";
+      }
+
       break;
       
-      
-      case "tesina_update":
-      echo " # tesina_new # ";
-      echo " datos ";
-      echo " titulo ->          ".$_POST['titulo']."\n";
-      echo "  objetivos ->      ".$_POST['objetivos']."\n";
-      echo "  motivacion ->     ".$_POST['motivacion']."\n";
-      echo "  propuesta ->      ".$_POST['propuesta']."\n";
-      echo "  resultados ->     ".$_POST['resultados']."\n";
-      echo "  clasificacion ->  ".$_POST['clasificacion']."\n";
-      echo "  meses ->          ".$_POST['meses']."\n";
-      echo "  director ->       ".$_POST['director']."\n";
-      echo "  codirector ->     ".$_POST['codirector']."\n";
-      echo "  aprofesional ->   ".$_POST['aprofesional']."\n";
-      //echo "  alumnos ->        ".$_POST['alumnos']."\n";
-       
+      // TESIDA_UPDATE , ACCCION PARA ACTUALIZAR LOS DATOS DE UNA TESINA 
+      case "tesina_update": 
+       if (!empty($_POST['titulo']    )     &&
+           !empty($_POST['objetivos'] )     &&
+           !empty($_POST['motivacion'])     &&
+           !empty($_POST['propuesta'] )     &&
+           !empty($_POST['resultados'] )    &&
+           !empty($_POST['clasificacion'] ) &&
+           !empty($_POST['meses'] )         &&
+           !empty($_POST['director'] )      &&
+           !empty($_POST['codirector'] )    &&
+           !empty($_POST['aprofesional'] )  &&
+           !empty($_POST['codirector'] )    &&
+           !empty($_POST['alumnos'] )       &&
+           !empty($_GET['id_tesina'] )
+           
+            ) {
+
        $titulo        = $_POST['titulo'];
        $objetivos     = $_POST['objetivos'];
        $motivacion    = $_POST['motivacion']; 
@@ -92,58 +97,66 @@ if (isset($_GET["action"])) {
        //print_r($_POST['alumnos']);
        $alumnos       = $_POST['alumnos'];
        $id_tesina = $_GET['id_tesina'];
+
        TesinaController::getInstance()->tesina_update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$id_tesina);
+        }else{
+          echo "error";
+
+        }
+
       break;
 
-
-      
-
-      
       // APROBACION DE TESINA 
       case "aprobartesina":
+         if (!empty($_GET['id_tesina'])){ 
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesinaAprobada($id_tesina);
+      }else{
+        echo "error";
+      }
       break;
 
       // RECHAZAR TESINA 
       case "rechazartesina":
+       if (!empty($_POST['id_tesina'])){
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesinaRechazar($id_tesina);
+      }else {
+        echo "Error";
+      }
       break;
-   
-
 
       // MOSTRAR TESINA CON ALUMNOS
       case "tesina_mostrar":
+      if (!empty($_GET['id_tesina'])){
       $id_tesina = $_GET['id_tesina'];
       TesinaController::getInstance()->tesina_mostrar($id_tesina);
+      }else{echo "Error";}
       break;
 
-
+      // ACTUALIZACION DEL MOTIVO 
       case "motivo_rechazo":
+       if (!empty($_GET['id_tesina'])){
       $id_tesina = $_GET['id_tesina'];
       $motivo_rechazo = $_POST['motivo_rechazo'];
       TesinaController::getInstance()->motivo_rechazo($id_tesina,$motivo_rechazo);
+      }else{echo "error";}
       break;
       
       
-
+      // AGREGAR TESINA 
        case "tesina_add":
-      // Verificamos los datos de la tesina , antes de llamar al controlador y poder hacer tesina_new(parametros)
-      echo " # tesina_new # ";
-      echo " datos ";
-      echo " titulo ->          ".$_POST['titulo']."\n";
-      echo "  objetivos ->      ".$_POST['objetivos']."\n";
-      echo "  motivacion ->     ".$_POST['motivacion']."\n";
-      echo "  propuesta ->      ".$_POST['propuesta']."\n";
-      echo "  resultados ->     ".$_POST['resultados']."\n";
-      echo "  clasificacion ->  ".$_POST['clasificacion']."\n";
-      echo "  meses ->          ".$_POST['meses']."\n";
-      echo "  director ->       ".$_POST['director']."\n";
-      echo "  codirector ->     ".$_POST['codirector']."\n";
-      echo "  aprofesional ->   ".$_POST['aprofesional']."\n";
-      //echo "  alumnos ->        ".$_POST['alumnos']."\n";
-       
+        if (!empty($_POST['titulo'])&&
+            !empty($_POST['objetivos'])&&
+            !empty($_POST['motivacion'])&&
+            !empty($_POST['propuesta'])&&
+            !empty($_POST['resultados'])&&
+            !empty($_POST['clasificacion'])&&
+            !empty($_POST['meses'])&&
+            !empty($_POST['director'])&&
+            !empty($_POST['codirector'])&&
+            !empty($_POST['aprofesional'])&&
+            !empty($_POST['alumnos'])) {
        $titulo        = $_POST['titulo'];
        $objetivos     = $_POST['objetivos'];
        $motivacion    = $_POST['motivacion']; 
@@ -154,63 +167,112 @@ if (isset($_GET["action"])) {
        $director      = $_POST['director']; 
        $codirector    = $_POST['codirector']; 
        $aprofesional  = $_POST['aprofesional']; 
-       //print_r($_POST['alumnos']);
        $alumnos       = $_POST['alumnos'];
-      
        TesinaController::getInstance()->tesina_new($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos);
+        }
+        else{
+          echo "error";
+
+        }
+
       break;
-
-
-
+      
+      // OBTENER LA CONFIGURACION .
       case "configuracion":
       ConfiguracionController::getInstance()->get_configuracion();
       break;
+
+      // ACTUALIZACION DE LA CONFIGURACION.  
       case "actualizar_configuracion":
+        if (!empty($_POST['titulo'])                && 
+            !empty($_POST['email'])                 &&
+            !empty($_POST['descripcion'])           &&
+            !empty($_POST['elementos_por_pagina'])  &&
+            !empty($_POST['habilitado']) ){
+
       $titulo = $_POST['titulo'];
       $email = $_POST['email'];
       $descripcion = $_POST['descripcion'];
       $elementos_por_pagina = $_POST['elementos_por_pagina'];
       $habilitado = $_POST['habilitado'];
       ConfiguracionController::getInstance()->configuracion_update($titulo , $descripcion,$email , $elementos_por_pagina , $habilitado);
+      }else {
+
+        echo "error";
+      }
+
       break;
+      
+      // REDIRECCION A LA PAGINA DE MANTENIMIENTO  
       case "mantenimiento":
       ResourceController::getInstance()->show_mantenimiento();
       break;
+
+      //  SIN PERMISOS 
+      case "sin_permisos":
+      ConfiguracionController::getInstance()->sin_permisos();
+      break;
+
+
       // METODOS PARA LOS USUARIOS 
       case "usuario_validar":
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
-      echo "email -> ".$email;
-      echo "clave -> ".$clave;
       UsuarioController::getInstance()->usuario_validar($email,$clave);
       break;
+
+      // CERRRAR LA SESION  
       case "cerrar_sesion":
       UsuarioController::getInstance()->cerrar_sesion();
       break;
-
+      
+      // ELIMINAR USUARIO 
       case "usuario_eliminar":
-      echo "vamos a eliminarte";
+      if (!empty($_GET['usuario_email']) ){
       $email = $_GET['usuario_email'];
       UsuarioController::getInstance()->usuario_eliminar($email);
+      
+      
+      }else{
+            // ENVIAR A UNA VISTA DE ERRORES 
+           echo " falta algun campo ";
+      }
       break;
-     
+
+     // GENERACION DEL FORMULARIO DE EDICION 
       case "usuario_editar":
+      if (!empty($_GET['usuario_email']) ){
       $email = $_GET['usuario_email'];
       UsuarioController::getInstance()->usuario_editar($email);
+      
+      }else{
+            // ENVIAR A UNA VISTA DE ERRORES 
+           echo " falta algun campo ";
+      }
+
       break;
+     
+      // CREACION DE USUARIO PERO DEL ADMINISTRACION 
+      case "usuario_crear":    
+      UsuarioController::getInstance()->usuario_crear();
+      break;
+      
 
 
+      
 
-
+      // USUARIO_UPDATE ACTUALIZACION DEL USUARIO.
       case "usuario_update":
-      echo " #### index ###";
-      echo " EMAIL       ->  ".$_POST['email'];
-      echo " FIRST_NAME  ->  ".$_POST['first_name'];
-      echo " LAST_NAME   ->  ".$_POST['last_name'];
-      echo " USERNAME ->  ".$_POST['username'];
-      echo " OLD EMAIL ->  ".$_GET['old_email'];
-      
-      
+      // VERIFICAR EXISTENCIA DE LOS DATOS 
+      if (!empty($_POST['email'])     && 
+         !empty($_POST['first_name']) &&
+         !empty($_POST['last_name'])  &&
+         !empty($_POST['last_name'])  && 
+         !empty($_POST['username'])   &&
+         !empty($_POST['pwd'])        &&
+         !empty($_GET['old_email'])  &&
+         !empty($_POST['rol'])
+       ) {
       $email = $_POST['email'];
       $first_name = $_POST['first_name'];
       $last_name = $_POST['last_name'];
@@ -219,35 +281,20 @@ if (isset($_GET["action"])) {
       $old_email = $_GET['old_email'];
       $roles = $_POST['rol'];
       UsuarioController::getInstance()->usuario_update($email,$first_name,$last_name,$clave,$username,$old_email,$roles);
+      }
+      else {
+            // ENVIAR A UNA VISTA DE ERRORES 
+           echo " falta algun campo ";         
+           }
       break;
 
-
+      // BLOQUEAR USUARIO , SETEA UNA VARIABLE DE USUARIO.
       case "usuario_bloquear":
-      echo " #### index ###";
-      echo "  EMAIL ->  ".$_GET['usuario_email'];
-      
       $email = $_GET['usuario_email'];
-     
       UsuarioController::getInstance()->usuario_bloquear($email);
       break;
 
-
-
-
-      //case "usuario_update":
-      //echo "Formulario para edicion";
-      //echo " usuario a modificar ->".$_GET['usuario_email'];
-      //$email = $_GET['usuario_email'];
-      //UsuarioController::getInstance()->usuario_editar($email);
-      //break;
-
-
-      
-
-      
-
-
-
+      // USUARIO_NEW  CREACION DE UN USUARIO PARA LA APROBACION POR PARTE DEL PERSONAL DE ADMINISTRACION. 
       case "usuario_add":
       if (!empty($_POST['email']) && !empty($_POST['pwd']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['username'])) {
           $email = $_POST['email'];
@@ -256,12 +303,30 @@ if (isset($_GET["action"])) {
           $last_name = $_POST['last_name'];
           $username = $_POST['username'];
           UsuarioController::getInstance()->usuario_add($email,$pwd,$first_name,$last_name,$username);
-} else {
-    UsuarioController::getInstance()->usuario_registrarse();
-}
-  
-      break;
-      
+          } else {
+          UsuarioController::getInstance()->usuario_registrarse();
+          }
+          break;
+          // ALTA DE USUARIO POR ADMINISTRACION 
+         case "crear_usuario":
+         if (!empty($_POST['email']) && !empty($_POST['pwd']) && 
+             !empty($_POST['first_name']) && !empty($_POST['last_name']) && 
+             !empty($_POST['username'])&& !empty($_POST['rol'])) {
+          $email = $_POST['email'];
+          $pwd = $_POST['pwd'];
+          $first_name = $_POST['first_name'];
+          $last_name = $_POST['last_name'];
+          $username = $_POST['username'];
+          $rol = $_POST['rol'];
+          UsuarioController::getInstance()->crear_usuario($email,$pwd,$first_name,$last_name,$username,$rol);
+          } else {
+          UsuarioController::getInstance()->usuario_registrarse();
+          }
+          break;
+
+
+
+
 
 
   }

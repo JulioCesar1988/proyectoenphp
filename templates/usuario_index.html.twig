@@ -3,10 +3,13 @@
   {% include 'head.html.twig' %}
   <body>
   {% include 'navbar.html.twig' %}
-
   <div class="container">
     <h2>Administracion de Usuarios</h2>
     <p>En esta pantalla podemos hacer las operaciones de ABM para Usuaruos del sistema. </p>
+       <div class="container">
+            <td><a class="btn btn-success" href="./index.php?action=usuario_crear"> Crear Usuario</a></td>
+
+          </div>
 
     <table class="table">
       <thead>
@@ -15,9 +18,8 @@
           <th>Nombre de usuario</th>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Activar</th>
+          <th>Habilito</th>
           <th>Clave</th>
-        
         </tr>
       </thead>
       <tbody>
@@ -27,16 +29,16 @@
           <td>{{usuario.username}}</td>
           <td>{{usuario.first_name}}</td>
           <td>{{usuario.last_name}}</td>
-           <td>{{(usuario.activo == 0 ? 'Sí' : 'No')}}</td>
+           <td>{{(usuario.activo == 0 ? 'No' : 'Sí')}}</td>
            <td>{{usuario.password}}</td>
           <div class="container">
             <td><a class="btn btn-warning" href="./index.php?action=usuario_editar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés editar este usuario?');">editar</a></td>
             <td><a class="btn btn-danger" href="./index.php?action=usuario_eliminar&usuario_email={{usuario.email}}" onclick="return confirm('¿Estás seguro que querés borrar este usuario?');"><span class="glyphicon glyphicon-trash"> </span> Borrar</a></td>
               <td><a class="btn btn-primary" href="./index.php?action=usuario_bloquear&usuario_email={{usuario.email}}">
               {% if usuario.activo == 0 %}
-              Desbloquear
+              Activar Usuario
               {% else %}
-              Bloquear
+              Desactivar Usuario
               {% endif %}
               </a></td>
 
@@ -50,16 +52,8 @@
    Paginas:
       {% for i in 1..paginas %}
       <a class="btn btn-primary" href="./index.php ?action=usuario_index&pagina={{i}}">{{i}}</a>
-
       {% endfor %}
- 
- 
-    
-
   </div>
-
-
-
   {% include 'footer.html.twig' %}
   </body>
 </html>

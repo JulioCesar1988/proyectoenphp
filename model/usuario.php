@@ -20,7 +20,8 @@ class Usuario {
     $query->execute(array($email, $username, $password,$activo,$first_name,$last_name));
     
   }
-  
+
+
    // buscar usuario por emails
   public function fetch($email){
     $query = $this->connection()->prepare("SELECT * FROM usuario WHERE (email = ?)");
@@ -54,7 +55,7 @@ class Usuario {
     // Limpieza de tabla usuario_tiene_rol
       $query = $this->connection()->prepare("SELECT id from usuario WHERE (email = ?)");
       $query->execute(array($email));
-      $user_id = $query->fetch()['id'];
+      $usuario_id = $query->fetch()['id'];
       $query = $this->connection()->prepare("DELETE from usuario_tiene_rol WHERE (usuario_id = ?)");
       $query->execute(array($usuario_id));
       // borrar usuario
@@ -82,7 +83,7 @@ class Usuario {
       $query = $this->connection()->prepare("SELECT * FROM rol WHERE nombre IN ('".implode("','",$roles)."')  ");
       $query->execute();
       $roles = $query->fetchAll();
-      print_r($roles);
+    
       if (!empty($roles)) {
         // hay algun rol valido, borramos todos los asignados a este usuario
         // y setteamos esos
@@ -91,7 +92,7 @@ class Usuario {
         $usuario_id = $query->fetch()['id'];
         $query = $this->connection()->prepare("DELETE from usuario_tiene_rol WHERE (usuario_id = ?)");
         $query->execute(array($usuario_id));
-        echo " usuario_id ->".$usuario_id;
+      
         foreach ($roles as $role) {
           $query = $this->connection()->prepare("SELECT id from rol WHERE (nombre = ?)");
           $query->execute(array($role['nombre']));
@@ -119,6 +120,16 @@ class Usuario {
     $this->updateRoles($old_email, $roles);
   }
 
+
+
+    // insertando en la base de datos
+    public function insertPorAdministracion($email,$password,$first_name,$last_name,$username,$rol){
+    $activo = 0;
+    $query = $this->connection()->prepare("INSERT INTO usuario (email, username,password,activo,first_name,last_name) VALUES (?, ?, ?, ?,?,?)");
+    $query->execute(array($email, $username, $password,$activo,$first_name,$last_name));
+    $this->updateRoles($email, $rol); 
+  }
+
 // Funcion para bloquear .
   public function bloquear($email) {
     $query = $this->connection()->prepare("UPDATE usuario SET activo = 0   WHERE (email = ?)");
@@ -132,6 +143,20 @@ class Usuario {
     $query->execute(array($email));
   
   }
+
+   // VERIFICACION DE PERMISOS 
+  public function verificarAccion( $email,$accion) {
+      $query = $this->connection()->prepare("SELECT permiso.nombre
+                                             FROM usuario inner join usuario_tiene_rol on ( usuario.id = usuario_tiene_rol.usuario_id  )
+                                                          inner join rol on (usuario_tiene_rol.rol_id = rol.id)
+                                                          inner join rol_tiene_permiso on (rol.id =rol_tiene_permiso.rol_id )
+                                                          inner join permiso on (rol_tiene_permiso.permiso_id = permiso.id)
+                                             WHERE ((usuario.email = ?)AND( permiso.nombre = ?)) ");
+      $query->execute(array($email,$accion));
+      $query->execute();
+      return $query->rowCount();
+  }
+
 
 
 

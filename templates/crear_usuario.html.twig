@@ -3,35 +3,34 @@
   {% include 'head.html.twig' %}
   <body>
   {% include 'navbar.html.twig' %}
-  {% include 'header.html.twig' %}
     <div class="row">
       <div class="col-md-offset-4 col-md-4" style="text-align: center;">
-        <h4>Editar usuario: {{old_email}} </h4>
-        <form action="./index.php?action=usuario_update&old_email={{old_email}}" method="post">
+        <h4>Crear Usuario por administracion </h4>
+        <form action="./index.php?action=crear_usuario" method="post">
+          
             
             <div class="form-group">
-            <label  >Email</label>
-            <input class="form-control" for="disabledInput" type="email" name="email" value={{u.email}} required ><br>
+            <label>Email</label>
+            <input class="form-control" type="email" name="email"  required><br>
           </div>
-
           <div class="form-group">
             <label>Usuario</label>
-            <input class="form-control" type="text" name="username" value={{u.username}} required><br>
+            <input class="form-control" type="text" name="username"  required><br>
           </div>
           <div class="form-group">
             <label>Password</label>
-            <input class="form-control" type="password" name="pwd" value={{u.password}} required><br>
+            <input class="form-control" type="password" name="pwd"  required><br>
           </div>
           <div class="form-group">
             <label>Nombre</label>
-            <input class="form-control" type="text" name="first_name" value={{u.first_name}} required><br>
+            <input class="form-control" type="text" name="first_name"  required><br>
           </div>
           <div class="form-group">
             <label>Apellido</label>
-            <input class="form-control" type="text" name="last_name" value={{u.last_name}} required><br>
+            <input class="form-control" type="text" name="last_name"  required><br>
           </div>
           <div class="form-group">
-            <label>Roles Actuales del Usuario  </label>{{ old_email }}
+            <label> Roles Actuales del Usuario  </label> {{ old_email }}
             <br>
 
             {% for rol in this_user_roles %}
@@ -44,10 +43,11 @@
               <input type="checkbox" name="rol[]" value="{{rol.nombre}}"><br>
             {% endfor %}
           </div>
-          <input class="btn btn-info" type="submit" value="Actualizar">
+          <input class="btn btn-info" type="submit" value="Crear">
         </form>
       </div>
     </div>
   {% include 'footer.html.twig' %}
   </body>
 </html>
+

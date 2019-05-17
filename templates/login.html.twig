@@ -3,7 +3,6 @@
   {% include 'head.html.twig' %}
   <body>
   {% include 'navbar.html.twig' %}
-  
 <style type="text/css">  
 @import "compass/css3";
 body{
@@ -16,11 +15,26 @@ body{
   <strong>Lo sentimos !</strong> El usuario o contraseña no son validos . 
   </div>
   {% else %}
+{% if mensaje == "alta" %}
   <div class="alert alert-info" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Bienvenidor !</strong> Para iniciar sesion por favor ingrese sos datos de login . 
+  <strong>Bienvenido !</strong> Espere que el personal de administracion lo hablite en el sistema . saludos 
   </div> 
+{% endif %}  
+
+
+{% if mensaje == "login" %}
+  <div class="alert alert-info" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Bienvenido !</strong> Para inicar sesion por favor ingrese sus datos de login . 
+  </div> 
+{% endif %}  
+
+
+
   {% endif %}
+
+
   <div class="container">
     <h2>Iniciar Sesión </h2>
     <form action="./index.php?action=usuario_validar" method="POST">
@@ -40,7 +54,6 @@ body{
   </div>
   {% include 'footer.html.twig' %}
   </body>
-
   <script type="text/javascript">
     window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){

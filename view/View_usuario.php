@@ -48,4 +48,11 @@ class View_usuario extends TwigView {
     }
 
 
+    // formulario para dar de alta a un usuario.
+    public function usuario_crear($logged_user,$roles) {
+        echo self::getTwig()->render('crear_usuario.html.twig' , array('logged_user' => $logged_user,'roles' => $roles ));
+    }
+    
+
+
 }

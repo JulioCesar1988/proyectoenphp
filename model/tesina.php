@@ -29,11 +29,13 @@ class Tesina {
     $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
     $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado));
    
-  // proceso para almacenar 
-    //$id_tesina = 1234;
-    //$stmt->execute();
-   //$id_tesina = $con->lastInsertId();
-   $id_tesina =  12;
+   
+    
+
+   //$id =  $this->connection()->lastInsertId();
+   //echo "algo".$id;
+   //$id_tesina = $connection->lastInsertId();
+   $id_tesina = 12;
    $this->tesina_usuario($alumnos,$id_tesina);
   }
   
@@ -71,11 +73,6 @@ class Tesina {
       $query->execute(array($id_tesina));
   
   }
-
-
-
-
-
 
     // INSERT DE LA TESINA
     public function update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado,$id_tesina) {

@@ -16,5 +16,9 @@ class View_configuracion extends TwigView {
         echo self::getTwig()->render('pagina_mantenimiento.html.twig');
     }
 
+    public function sin_permisos($logged_user) {
+        echo self::getTwig()->render('sin_permisos.html.twig',array('logged_user' => $logged_user ));
+    }
+
 
 }
