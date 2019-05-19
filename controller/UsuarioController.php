@@ -205,10 +205,7 @@ class UsuarioController {
         session_start();
         $_SESSION['email'] = $email;
         $logged_user = $email;
-        
-
-
-
+    
         header('location:./index.php?action=index');
      } else {
         $mensaje ="error"; 

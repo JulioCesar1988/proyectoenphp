@@ -50,6 +50,11 @@ class ConfiguracionController {
         $view = new View_configuracion();
         $view->error_pagina($logged_user);
         }
+        else{
+          $logged_user ="";
+           $view = new View_configuracion();
+        $view->error_pagina($logged_user);
+        }
 
 
 

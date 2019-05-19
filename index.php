@@ -20,7 +20,6 @@ require_once('view/View_configuracion.php');
 $config =  New Configuracion();
 $hablitado = $config->get_hablitado();
 
-
 if (!$hablitado) {
    ConfiguracionController::getInstance()->show_mantenimiento();
 
@@ -47,6 +46,17 @@ if (isset($_GET["action"])) {
       TesinaController::getInstance()->tesina_create();
       break;
 
+      // GENERACION DEL FORMULARIO DE EDICION DE LA TESINA .
+      case "tesina_editar":
+      if (!empty($_GET['id_tesina'])) {
+      $id_tesina = $_GET['id_tesina'];
+      TesinaController::getInstance()->tesina_editar($id_tesina);
+      }else{
+        header('location:./index.php?action=error_pagina');
+      }
+      break;
+
+      
        case "tesina_eliminar":
       if (!empty($_GET['id_tesina'])) {
        $id_tesina = $_GET['id_tesina'];
@@ -57,16 +67,6 @@ if (isset($_GET["action"])) {
 
       break;
 
-      // GENERACION DEL FORMULARIO DE EDICION DE LA TESINA .
-      case "tesina_editar":
-      if (!empty($_GET['id_tesina'])) {
-      $id_tesina = $_GET['id_tesina'];
-      TesinaController::getInstance()->tesina_editar($id_tesina);
-      }else{
-        header('location:./index.php?action=error_pagina');
-      }
-
-      break;
       
       // TESIDA_UPDATE , ACCCION PARA ACTUALIZAR LOS DATOS DE UNA TESINA 
       case "tesina_update": 
@@ -220,9 +220,16 @@ if (isset($_GET["action"])) {
 
       // METODOS PARA LOS USUARIOS 
       case "usuario_validar":
+      if (!empty($_POSt['email']) &&!empty($_POSt['pwd'])  ){
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
       UsuarioController::getInstance()->usuario_validar($email,$clave);
+      }else{
+            // ENVIAR A UNA VISTA DE ERRORES 
+           echo "error de parametros";
+      }
+
+
       break;
 
       // CERRRAR LA SESION  
