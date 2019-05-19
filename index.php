@@ -17,10 +17,10 @@ require_once('view/View_usuario.php');
 require_once('view/View_tesina.php');
 require_once('view/View_configuracion.php');
 
-$config =  New Configuracion();
+$config    =  New Configuracion();
 $hablitado = $config->get_hablitado();
 
-if (!$hablitado) {
+if ($hablitado == 0 ) {
    ConfiguracionController::getInstance()->show_mantenimiento();
 
 } else {
@@ -70,6 +70,7 @@ if (isset($_GET["action"])) {
       
       // TESIDA_UPDATE , ACCCION PARA ACTUALIZAR LOS DATOS DE UNA TESINA 
       case "tesina_update": 
+      
        if (!empty($_POST['titulo']    )     &&
            !empty($_POST['objetivos'] )     &&
            !empty($_POST['motivacion'])     &&
@@ -184,12 +185,11 @@ if (isset($_GET["action"])) {
 
       // ACTUALIZACION DE LA CONFIGURACION.  
       case "actualizar_configuracion":
-        if (!empty($_POST['titulo'])                && 
-            !empty($_POST['email'])                 &&
-            !empty($_POST['descripcion'])           &&
-            !empty($_POST['elementos_por_pagina'])  &&
-            !empty($_POST['habilitado']) ){
-
+        if ( (!empty($_POST['titulo']))                && 
+             (!empty($_POST['email']))                 &&
+             (!empty($_POST['descripcion']))           &&
+             (!empty($_POST['elementos_por_pagina']))  
+           ){
       $titulo               = $_POST['titulo'];
       $email                = $_POST['email'];
       $descripcion          = $_POST['descripcion'];
@@ -197,7 +197,7 @@ if (isset($_GET["action"])) {
       $habilitado           = $_POST['habilitado'];
       ConfiguracionController::getInstance()->configuracion_update($titulo , $descripcion,$email , $elementos_por_pagina , $habilitado);
       }else {
-
+        
         header('location:./index.php?action=error_pagina');
       }
 
@@ -220,8 +220,6 @@ if (isset($_GET["action"])) {
 
       // METODOS PARA LOS USUARIOS 
       case "usuario_validar":
-
-
       if ( !empty($_POST['email'] ) && !empty($_POST['pwd']) ){
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
@@ -233,9 +231,7 @@ if (isset($_GET["action"])) {
            $view->login($mensaje);
 
       }
-
-
-      break;
+     break;
 
       // CERRRAR LA SESION  
       case "cerrar_sesion":
