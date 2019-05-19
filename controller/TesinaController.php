@@ -121,7 +121,7 @@ class TesinaController {
         // ALUMNOS QUE ESTAN EN LA TESINA 
         $usuarios = new Usuario();
         $alumnos =  $usuarios->get_alumnos_tesinas($id_tesina); 
-        print_r($alumnos);
+        
         $view = new View_tesina();
         $view->tesina_mostrar($logged_user,$tesina,$alumnos);
 

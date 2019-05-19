@@ -17,8 +17,11 @@ require_once('view/Home.php');
 require_once('view/View_usuario.php');
 require_once('view/View_tesina.php');
 require_once('view/View_configuracion.php');
+
 $config =  New Configuracion();
 $hablitado = $config->get_hablitado();
+
+
 if (!$hablitado) {
    ConfiguracionController::getInstance()->show_mantenimiento();
 
@@ -333,16 +336,20 @@ if (isset($_GET["action"])) {
           }
           break;
 
+        default:
+        header('location:./index.php?action=error_pagina');
+        break;
+}
+
+
+}
+else {
+  header('location:./index.php?action=error_pagina');
+}
 
 
 
-
-
-  }
-} else {
-  ResourceController::getInstance()->index();
-}  
-
+   
 
 
 }
