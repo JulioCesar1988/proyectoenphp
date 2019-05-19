@@ -220,13 +220,18 @@ if (isset($_GET["action"])) {
 
       // METODOS PARA LOS USUARIOS 
       case "usuario_validar":
-      if (!empty($_POSt['email']) &&!empty($_POSt['pwd'])  ){
+
+
+      if ( !empty($_POST['email'] ) && !empty($_POST['pwd']) ){
       $email = $_POST['email'];
       $clave = $_POST['pwd'];
       UsuarioController::getInstance()->usuario_validar($email,$clave);
       }else{
             // ENVIAR A UNA VISTA DE ERRORES 
-           echo "error de parametros";
+           $view = new View_usuario();
+           $mensaje = "error";
+           $view->login($mensaje);
+
       }
 
 
