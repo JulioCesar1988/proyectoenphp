@@ -344,7 +344,7 @@ if (isset($_GET["action"])) {
 
 }
 else {
-  header('location:./index.php?action=error_pagina');
+  header('location:./index.php?action=index');
 }
 
 
