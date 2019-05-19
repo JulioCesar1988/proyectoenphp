@@ -120,8 +120,8 @@ class TesinaController {
         $tesina = $tesinas->fetch($id_tesina);
         // ALUMNOS QUE ESTAN EN LA TESINA 
         $usuarios = new Usuario();
-        $alumnos =  $usuarios->listAll(); 
-         // hacemos el render del formulario de modificacion con los datos que traemos del modelo .
+        $alumnos =  $usuarios->get_alumnos_tesinas($id_tesina); 
+        print_r($alumnos);
         $view = new View_tesina();
         $view->tesina_mostrar($logged_user,$tesina,$alumnos);
 

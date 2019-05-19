@@ -29,6 +29,15 @@ class Usuario {
     return $query->fetch();
   }
 
+
+public function get_alumnos_tesinas($id_tesina){
+    $query = $this->connection()->prepare("SELECT * FROM usuario WHERE (usuario.id IN ( SELECT id_alumno FROM tesina_alumno WHERE (tesina_alumno.id_tesina = ?) ) )");
+    $query->execute(array($id_tesina));
+    return $query->fetchAll();
+  }
+
+
+  
  // listar todos los usuarios . 
   public function listAll() {
     $query = $this->connection()->prepare("SELECT * FROM usuario ");

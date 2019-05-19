@@ -9,7 +9,7 @@ class Tesina {
     private function connection() {
     $connection = new Connection();
     $connection = $connection->getConnection();
-    return $connection;
+    return $connection; 
   } 
  
 
@@ -26,15 +26,15 @@ class Tesina {
 
     // INSERT DE LA TESINA
     public function insert($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado) {
-    $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-    $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado));
+      $query = $this->connection()->prepare("INSERT INTO tesina (titulo,objetivos,motivacion,propuesta,resultados,clasificacion,meses,director,codirector,aprofesional,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+       $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado));
    
+
    
-   //$id =  $this->connection()->lastInsertId();
-   //echo "algo".$id;
-   //$id_tesina = $connection->lastInsertId();
-   $id_tesina = 12;
+    $id_tesina = $this->getidtesina($titulo);
+  
    $this->tesina_usuario($alumnos,$id_tesina);
+
   }
   
 
@@ -44,6 +44,15 @@ class Tesina {
     $query = $this->connection()->prepare("SELECT * FROM tesina WHERE (id_tesina = ?)");
     $query->execute(array($id_tesina));
     return $query->fetch();
+  }
+
+
+    public function getidtesina($titulo){
+    $query = $this->connection()->prepare("SELECT * FROM tesina WHERE (titulo = ?)");
+    $query->execute(array($titulo));
+    $resultado =  $query->fetch();
+    return $resultado['id_tesina'];
+
   }
 
  // LISTAR TODAS LAS TESINA . 
@@ -72,7 +81,7 @@ class Tesina {
   
   }
 
-    // INSERT DE LA TESINA
+    // UPDATE DE LA TESINA 
     public function update($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$alumnos,$estado,$id_tesina) {
     $query = $this->connection()->prepare("UPDATE tesina set titulo = ? ,
                                                       objetivos = ? ,

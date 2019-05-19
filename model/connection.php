@@ -1,7 +1,7 @@
   <?php
-  class Connection {
+  class Connection  {
     public $connection;
-    function __construct(){
+      function __construct(){
       try {
         $con = new PDO("mysql:host=localhost;dbname=grupo52","grupo52","YmY3NzI0OGU0ZWQ5");
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,6 +23,7 @@
 
     
 
-  }
+
+    }
 
   ?>

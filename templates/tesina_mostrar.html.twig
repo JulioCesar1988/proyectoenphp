@@ -23,6 +23,7 @@
         <th>Emails</th>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Usuario</th>
       </tr>
     </thead>
      {% for alumno in alumnos %}
@@ -31,6 +32,7 @@
         <td>{{alumno.email}}</td>
         <td>{{alumno.username}}</td>
         <td>{{alumno.last_name}}</td>
+        <td>{{alumno.username}}</td>
       </tr>
       {% endfor %}
     </tbody>
