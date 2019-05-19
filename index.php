@@ -9,7 +9,6 @@ require_once('controller/UsuarioController.php');
 require_once('controller/TesinaController.php');
 require_once('model/PDORepository.php');
 require_once('model/ResourceRepository.php');
-require_once('model/Resource.php');
 require_once('view/TwigView.php');
 require_once('model/usuario.php');
 require_once('model/configuracion.php');
@@ -175,9 +174,7 @@ if (isset($_GET["action"])) {
         }
         else{
           header('location:./index.php?action=error_pagina');
-
         }
-
       break;
       
       // OBTENER LA CONFIGURACION .

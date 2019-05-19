@@ -4,6 +4,9 @@
  *
  * @author Contreras Julio 
  */
+
+require_once("./model/connection.php");
+require_once("./model/configuracion.php");
 class ResourceController {
 
     private static $instance;
@@ -25,15 +28,25 @@ class ResourceController {
     session_start();
     if (isset($_SESSION['email'])) {
         # code...
+           $conf = new Configuracion();
+           $titulo = $conf->get_titulo();
+           $descripcion = $conf->get_descripcion();
+           $email = $conf->get_email();
+
            $logged_user = $_SESSION['email'];
            $view = new Home();
-           $view->index($logged_user);
+           $view->index($logged_user,$titulo,$descripcion,$email);
 
     } else {
         # code...
-    $logged_user = "";
-    $view = new Home();
-    $view->index($logged_user);
+    $conf = new Configuracion();
+           $titulo = $conf->get_titulo();
+           $descripcion = $conf->get_descripcion();
+           $email = $conf->get_email();
+
+           $logged_user = "";
+           $view = new Home();
+           $view->index($logged_user,$titulo,$descripcion,$email);
 
     }
     

@@ -96,11 +96,7 @@ class Tesina {
                                                    estado = ? WHERE ( id_tesina = ? )");
     $query->execute(array($titulo,$objetivos,$motivacion,$propuesta,$resultados,$clasificacion,$meses,$director,$codirector,$aprofesional,$estado,$id_tesina));
    
-  // proceso para almacenar 
-    //$id_tesina = 1234;
-    //$stmt->execute();
-   //$id_tesina = $con->lastInsertId();
-   $id_tesina =  12;
+  
    $this->tesina_usuario($alumnos,$id_tesina);
   }
 

@@ -198,15 +198,18 @@ class UsuarioController {
         $view->login($mensaje);
     }
 
-    // VALIDAR LOGIN
+   // VALIDAR LOGIN
      public function usuario_validar($email , $clave){
      $usuario = new Usuario();  
      if ($row = $usuario->validar_datos($email,$clave)) {
         session_start();
         $_SESSION['email'] = $email;
         $logged_user = $email;
-        $view = new Home();
-        $view->index($logged_user);
+        
+
+
+
+        header('location:./index.php?action=index');
      } else {
         $mensaje ="error"; 
         $view = new View_usuario();
@@ -214,6 +217,7 @@ class UsuarioController {
       }
 
     }
+
 
     
     //  USUARIO_UPDATE    (listo)
@@ -276,7 +280,11 @@ class UsuarioController {
           session_unset();  
           session_destroy();
           session_destroy(); 
-          header('location:./index.php');
+
+          header('location:./index.php?action=login');
+    
+
+
     }
   
 
